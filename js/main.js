@@ -1,7 +1,7 @@
 const APPLICATION_EMAIL = 'wayne@motorcitycreators.com';
 const APPLICATION_RETURN_URL = 'https://www.motorcitycreators.com/about.html?submitted=1';
 const WEB3FORMS_ACCESS_KEY = '8a96ee80-5612-42c5-bb18-7d74c861fe47';
-const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
+const WEB3FORMS_ACTION = `https://api.web3forms.com/submit/${WEB3FORMS_ACCESS_KEY}`;
 
 const SOCIAL_TEMPLATE_PATHS = [
   '/assets/footer-socials.html',
@@ -148,14 +148,10 @@ function syncFormHiddenFields(form) {
   const subject = form.querySelector('[name="subject"]');
   if (subject) subject.value = applicationSubject(form);
 
-  form.action = WEB3FORMS_ENDPOINT;
+  form.action = WEB3FORMS_ACTION;
 
   const email = fieldValue(form, 'email');
   if (email) ensureHiddenField(form, 'replyto', email);
-}
-
-function web3FormsSucceeded(data) {
-  return data && data.success === true;
 }
 
 function showFormBanner(form, message, type = 'success') {
@@ -166,76 +162,20 @@ function showFormBanner(form, message, type = 'success') {
   form.insertBefore(banner, form.firstChild);
 }
 
-function deliverApplicationViaMailto(form) {
-  const summary = buildApplicationSummary(form);
-  const subject = encodeURIComponent(applicationSubject(form));
-  const body = encodeURIComponent(summary);
-  window.location.href = `mailto:${APPLICATION_EMAIL}?subject=${subject}&body=${body}`;
-}
-
-function deliverApplicationNatively(form) {
-  syncFormHiddenFields(form);
-  form.removeEventListener('submit', handleApplicationSubmit);
-  form.submit();
-}
-
-async function handleApplicationSubmit(e) {
-  e.preventDefault();
+function handleApplicationSubmit(e) {
   const form = e.target;
-  const btn = form.querySelector('.form-submit');
-  if (!btn || btn.disabled) return;
-
-  if (form.querySelector('[name="botcheck"]')?.checked) return;
-
-  syncFormHiddenFields(form);
-
-  const accessKey = getFormAccessKey(form);
-  if (!accessKey) {
-    showFormBanner(
-      form,
-      'Form delivery is being set up. Your application will open in your email app — tap Send to deliver it to Wayne.',
-      'error'
-    );
-    deliverApplicationViaMailto(form);
+  if (form.querySelector('[name="botcheck"]')?.checked) {
+    e.preventDefault();
     return;
   }
 
-  const originalText = btn.textContent;
-  btn.disabled = true;
-  btn.textContent = 'Sending...';
-  form.querySelector('.form-error-banner')?.remove();
+  syncFormHiddenFields(form);
 
-  try {
-    const res = await fetch(WEB3FORMS_ENDPOINT, {
-      method: 'POST',
-      headers: { Accept: 'application/json' },
-      body: new FormData(form),
-    });
-    const data = await res.json().catch(() => ({}));
-
-    if (web3FormsSucceeded(data)) {
-      window.location.href = APPLICATION_RETURN_URL;
-      return;
-    }
-
-    const message = String(data.message || data.body?.message || '').toLowerCase();
-    if (message.includes('access') || message.includes('invalid') || res.status === 400) {
-      showFormBanner(
-        form,
-        'Email delivery hiccup — opening your mail app so you can send the application directly to Wayne.',
-        'error'
-      );
-      deliverApplicationViaMailto(form);
-      btn.textContent = originalText;
-      btn.disabled = false;
-      return;
-    }
-  } catch {
-    /* fall through to native POST */
+  const btn = form.querySelector('.form-submit');
+  if (btn && !btn.disabled) {
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
   }
-
-  btn.textContent = 'Delivering...';
-  deliverApplicationNatively(form);
 }
 
 function showSubmittedBanner() {
