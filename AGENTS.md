@@ -13,10 +13,10 @@ A static marketing website (plain HTML/CSS/JS, no framework, no build step) for 
   but serving via HTTP is the correct way to exercise relative asset paths.
 - **Pages:** `index.html`, `about.html`, `services.html`, `revenue.html`,
   `results.html`, `contact.html`, and the standalone `MotorCity_Digital_Marketing.html`.
-- **Contact/application form** (`contact.html` + `js/main.js` `handleSubmit`): it is a
-  client-side mock only. It calls `preventDefault()`, swaps the button to an
-  "Application Sent" confirmation for 5s, then resets the form. There is no network
-  request, email service, or backend — do not expect submissions to be stored anywhere.
+- **Contact/application form** (`contact.html` + `js/main.js`): submits via
+  [FormSubmit](https://formsubmit.co) AJAX to `wayne@motorcitycreators.com`. Requires a
+  one-time activation link in that inbox on first submission. Forms use class
+  `application-form` and collect `main_social` + `what_you_do` fields.
 - **External dependency:** Google Fonts CDN is used for brand fonts only; the site
   renders fine with fallback fonts if the CDN is blocked.
 - **Lint/test/build:** None are defined for this project (no tooling configured).

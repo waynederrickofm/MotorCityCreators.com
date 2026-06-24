@@ -478,16 +478,25 @@ footer{background:var(--black);padding:48px clamp(20px,4vw,56px) 28px;border-top
         <div class="contact-item"><div class="contact-label">Email</div><div class="contact-val">wayne@motorcitycreators.com</div></div>
         <div class="contact-item" style="border:none"><div class="contact-label">Website</div><div class="contact-val">www.motorcitycreators.com</div></div>
       </div>
-      <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+      <form class="contact-form application-form reveal">
+        <p style="font-size:.8rem;color:var(--muted);line-height:1.65;margin-bottom:18px">Include your <strong style="color:var(--white)">main social @</strong> and tell us <strong style="color:var(--white)">what you do</strong>. Sent to wayne@motorcitycreators.com.</p>
         <div class="form-row">
-          <div class="form-group"><label>First Name</label><input type="text" placeholder="John" required/></div>
-          <div class="form-group"><label>Last Name</label><input type="text" placeholder="Doe" required/></div>
+          <div class="form-group"><label for="first_name">First Name</label><input id="first_name" name="first_name" type="text" placeholder="John" required/></div>
+          <div class="form-group"><label for="last_name">Last Name</label><input id="last_name" name="last_name" type="text" placeholder="Doe" required/></div>
         </div>
-        <div class="form-group"><label>Email</label><input type="email" placeholder="you@example.com" required/></div>
-        <div class="form-group"><label>Phone</label><input type="tel" placeholder="(555) 000-0000"/></div>
+        <div class="form-group"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="you@example.com" required/></div>
+        <div class="form-group"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" placeholder="(555) 000-0000"/></div>
         <div class="form-group">
-          <label>I'm Interested In</label>
-          <select required>
+          <label for="main_social">Main Social Media @</label>
+          <input id="main_social" name="main_social" type="text" placeholder="@yourhandle on Instagram, TikTok, YouTube, etc." required/>
+        </div>
+        <div class="form-group">
+          <label for="what_you_do">What Do You Do?</label>
+          <textarea id="what_you_do" name="what_you_do" placeholder="Your niche, content style, platforms, and what you create..." required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="interest">I'm Interested In</label>
+          <select id="interest" name="interest" required>
             <option value="" disabled selected>Select...</option>
             <option>General Management</option>
             <option>Digital Marketing Package</option>
@@ -496,7 +505,7 @@ footer{background:var(--black);padding:48px clamp(20px,4vw,56px) 28px;border-top
             <option>Full Service Package</option>
           </select>
         </div>
-        <div class="form-group"><label>Your Goals</label><textarea placeholder="Tell us about your content, platforms, and revenue goals..."></textarea></div>
+        <div class="form-group"><label for="goals">Your Goals</label><textarea id="goals" name="goals" placeholder="Tell us about your content, platforms, and revenue goals..."></textarea></div>
         <button type="submit" class="form-submit">Send Application</button>
       </form>
     </div>
@@ -528,13 +537,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
   });
 });
 
-function handleSubmit(e){
-  e.preventDefault();
-  const btn=e.target.querySelector('.form-submit');
-  btn.textContent='Application Sent — We\'ll Contact You Within 24 Hours';
-  btn.style.background='#2a6e2a';btn.style.color='#fff';
-  setTimeout(()=>{btn.textContent='Send Application';btn.style.background='';btn.style.color='';e.target.reset()},5000);
-}
 </script>
+<script src="js/main.js"></script>
 </body>
 </html>

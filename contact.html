@@ -83,17 +83,26 @@
         </div>
       </div>
 
-      <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+      <form class="contact-form application-form reveal" id="apply-form">
         <span class="eyebrow" style="margin-bottom:20px">Apply Free</span>
+        <p style="font-size:.8rem;color:var(--muted);line-height:1.65;margin-bottom:18px">Fill this out completely — include your <strong style="color:var(--white)">main social @</strong> and tell us <strong style="color:var(--white)">what you do</strong>. Applications go straight to <a href="mailto:wayne@motorcitycreators.com" style="color:var(--gold)">wayne@motorcitycreators.com</a>.</p>
         <div class="form-row">
-          <div class="form-group"><label>First Name</label><input type="text" placeholder="John" required/></div>
-          <div class="form-group"><label>Last Name</label><input type="text" placeholder="Doe" required/></div>
+          <div class="form-group"><label for="first_name">First Name</label><input id="first_name" name="first_name" type="text" placeholder="John" required/></div>
+          <div class="form-group"><label for="last_name">Last Name</label><input id="last_name" name="last_name" type="text" placeholder="Doe" required/></div>
         </div>
-        <div class="form-group"><label>Email</label><input type="email" placeholder="you@example.com" required/></div>
-        <div class="form-group"><label>Phone</label><input type="tel" placeholder="(555) 000-0000"/></div>
+        <div class="form-group"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="you@example.com" required/></div>
+        <div class="form-group"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" placeholder="(555) 000-0000"/></div>
         <div class="form-group">
-          <label>I'm Interested In</label>
-          <select required>
+          <label for="main_social">Main Social Media @</label>
+          <input id="main_social" name="main_social" type="text" placeholder="@yourhandle on Instagram, TikTok, YouTube, etc." required/>
+        </div>
+        <div class="form-group">
+          <label for="what_you_do">What Do You Do?</label>
+          <textarea id="what_you_do" name="what_you_do" placeholder="Tell us your niche, content style, platforms you post on, and what you create (e.g. lifestyle, music, fitness, gaming, 18+, brand deals...)" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="interest">I'm Interested In</label>
+          <select id="interest" name="interest" required>
             <option value="" disabled selected>Select...</option>
             <option>General Management</option>
             <option>18+ / OnlyFans Management</option>
@@ -103,9 +112,9 @@
             <option>Full Service Package</option>
           </select>
         </div>
-        <div class="form-group"><label>Your Goals</label><textarea placeholder="Tell us about your content, platforms (TikTok, IG, X, Threads, OnlyFans, etc.), and revenue goals..."></textarea></div>
+        <div class="form-group"><label for="goals">Your Goals &amp; Revenue Targets</label><textarea id="goals" name="goals" placeholder="Where are you now, where do you want to be, and what monthly revenue are you aiming for?"></textarea></div>
         <button type="submit" class="form-submit">Send Application</button>
-        <p style="font-size:.72rem;color:var(--muted);text-align:center;margin-top:12px">🔒 Confidential · We respond within 24 hours</p>
+        <p style="font-size:.72rem;color:var(--muted);text-align:center;margin-top:12px">🔒 Confidential · Delivered to wayne@motorcitycreators.com · We respond within 24 hours</p>
       </form>
     </div>
   </div>

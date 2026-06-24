@@ -1,19 +1,56 @@
-function handleSubmit(e) {
+const APPLICATION_EMAIL = 'wayne@motorcitycreators.com';
+
+async function handleApplicationSubmit(e) {
   e.preventDefault();
-  const btn = e.target.querySelector('.form-submit');
-  if (!btn) return;
-  btn.textContent = "Application Sent — We'll Contact You Within 24 Hours";
-  btn.style.background = '#2a6e2a';
-  btn.style.color = '#fff';
-  setTimeout(() => {
-    btn.textContent = 'Send Application';
-    btn.style.background = '';
-    btn.style.color = '';
-    e.target.reset();
-  }, 5000);
+  const form = e.target;
+  const btn = form.querySelector('.form-submit');
+  if (!btn || btn.disabled) return;
+
+  const payload = Object.fromEntries(new FormData(form).entries());
+  payload._subject = 'New Motor City Creators Application';
+  payload._template = 'table';
+  payload._captcha = 'false';
+
+  const originalText = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+
+  try {
+    const res = await fetch(`https://formsubmit.co/ajax/${APPLICATION_EMAIL}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) throw new Error('submit failed');
+
+    btn.textContent = "Application Sent — We'll Contact You Within 24 Hours";
+    btn.style.background = '#2a6e2a';
+    btn.style.color = '#fff';
+    form.reset();
+    setTimeout(() => {
+      btn.textContent = originalText;
+      btn.style.background = '';
+      btn.style.color = '';
+      btn.disabled = false;
+    }, 5000);
+  } catch {
+    btn.textContent = 'Send failed — try again or email wayne@motorcitycreators.com';
+    btn.style.background = '#8b2e2e';
+    btn.style.color = '#fff';
+    btn.disabled = false;
+    setTimeout(() => {
+      btn.textContent = originalText;
+      btn.style.background = '';
+      btn.style.color = '';
+    }, 6000);
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.application-form').forEach((form) => {
+    form.addEventListener('submit', handleApplicationSubmit);
+  });
+
   const obs = new IntersectionObserver(
     (entries) => {
       entries.forEach((e) => {
