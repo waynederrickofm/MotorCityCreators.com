@@ -1,6 +1,7 @@
 const APPLICATION_EMAIL = 'wayne@motorcitycreators.com';
 const APPLICATION_RETURN_URL = 'https://www.motorcitycreators.com/about.html?submitted=1';
 const WEB3FORMS_ACCESS_KEY = '8a96ee80-5612-42c5-bb18-7d74c861fe47';
+const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
 
 const SOCIAL_TEMPLATE_PATHS = [
   '/assets/footer-socials.html',
@@ -20,10 +21,6 @@ function getFormAccessKey(form) {
   if (fromHidden) return fromHidden;
 
   return WEB3FORMS_ACCESS_KEY;
-}
-
-function getWeb3FormsEndpoint(form) {
-  return `https://api.web3forms.com/submit/${getFormAccessKey(form)}`;
 }
 
 async function loadSocialTemplate() {
@@ -136,7 +133,12 @@ function ensureHiddenField(form, name, value) {
 }
 
 function syncFormHiddenFields(form) {
+  const first = fieldValue(form, 'first_name');
+  const last = fieldValue(form, 'last_name');
   const summary = buildApplicationSummary(form);
+
+  ensureHiddenField(form, 'access_key', getFormAccessKey(form));
+  ensureHiddenField(form, 'name', `${first} ${last}`.trim());
   ensureHiddenField(form, 'message', summary);
   ensureHiddenField(form, 'application_summary', summary);
 
@@ -146,35 +148,10 @@ function syncFormHiddenFields(form) {
   const subject = form.querySelector('[name="subject"]');
   if (subject) subject.value = applicationSubject(form);
 
-  const accessKey = getFormAccessKey(form);
-  ensureHiddenField(form, 'access_key', accessKey);
-  form.action = getWeb3FormsEndpoint(form);
+  form.action = WEB3FORMS_ENDPOINT;
 
   const email = fieldValue(form, 'email');
-  if (email) {
-    ensureHiddenField(form, 'replyto', email);
-  }
-}
-
-function buildWeb3FormsPayload(form) {
-  const first = fieldValue(form, 'first_name');
-  const last = fieldValue(form, 'last_name');
-  const accessKey = getFormAccessKey(form);
-  return {
-    access_key: accessKey,
-    subject: applicationSubject(form),
-    from_name: 'Motor City Creators Website',
-    name: `${first} ${last}`.trim(),
-    email: fieldValue(form, 'email'),
-    replyto: fieldValue(form, 'email'),
-    phone: fieldValue(form, 'phone'),
-    main_social: fieldValue(form, 'main_social'),
-    what_you_do: fieldValue(form, 'what_you_do'),
-    interest: fieldValue(form, 'interest'),
-    goals: fieldValue(form, 'goals'),
-    message: buildApplicationSummary(form),
-    botcheck: false,
-  };
+  if (email) ensureHiddenField(form, 'replyto', email);
 }
 
 function web3FormsSucceeded(data) {
@@ -229,13 +206,10 @@ async function handleApplicationSubmit(e) {
   form.querySelector('.form-error-banner')?.remove();
 
   try {
-    const res = await fetch(getWeb3FormsEndpoint(form), {
+    const res = await fetch(WEB3FORMS_ENDPOINT, {
       method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(buildWeb3FormsPayload(form)),
+      headers: { Accept: 'application/json' },
+      body: new FormData(form),
     });
     const data = await res.json().catch(() => ({}));
 
