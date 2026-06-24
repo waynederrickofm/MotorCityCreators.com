@@ -1,7 +1,6 @@
 const APPLICATION_EMAIL = 'wayne@motorcitycreators.com';
 const APPLICATION_RETURN_URL = 'https://www.motorcitycreators.com/about.html?submitted=1';
 const WEB3FORMS_ACCESS_KEY = '8a96ee80-5612-42c5-bb18-7d74c861fe47';
-const WEB3FORMS_ACTION = `https://api.web3forms.com/submit/${WEB3FORMS_ACCESS_KEY}`;
 
 const SOCIAL_TEMPLATE_PATHS = [
   '/assets/footer-socials.html',
@@ -118,7 +117,7 @@ function buildApplicationSummary(form) {
 
 function applicationSubject(form) {
   const name = `${fieldValue(form, 'first_name')} ${fieldValue(form, 'last_name')}`.trim();
-  return name ? `New MCC Application — ${name}` : 'New Motor City Creators Application';
+  return name ? `New MCC Application - ${name}` : 'New Motor City Creators Application';
 }
 
 function ensureHiddenField(form, name, value) {
@@ -140,18 +139,35 @@ function syncFormHiddenFields(form) {
   ensureHiddenField(form, 'access_key', getFormAccessKey(form));
   ensureHiddenField(form, 'name', `${first} ${last}`.trim());
   ensureHiddenField(form, 'message', summary);
-  ensureHiddenField(form, 'application_summary', summary);
-
-  const redirect = form.querySelector('[name="redirect"]');
-  if (redirect) redirect.value = APPLICATION_RETURN_URL;
 
   const subject = form.querySelector('[name="subject"]');
   if (subject) subject.value = applicationSubject(form);
 
-  form.action = WEB3FORMS_ACTION;
-
   const email = fieldValue(form, 'email');
   if (email) ensureHiddenField(form, 'replyto', email);
+}
+
+function buildWeb3FormsPayload(form) {
+  const first = fieldValue(form, 'first_name');
+  const last = fieldValue(form, 'last_name');
+  return {
+    access_key: getFormAccessKey(form),
+    subject: applicationSubject(form),
+    from_name: 'Motor City Creators Website',
+    name: `${first} ${last}`.trim(),
+    email: fieldValue(form, 'email'),
+    replyto: fieldValue(form, 'email'),
+    phone: fieldValue(form, 'phone'),
+    main_social: fieldValue(form, 'main_social'),
+    what_you_do: fieldValue(form, 'what_you_do'),
+    interest: fieldValue(form, 'interest'),
+    goals: fieldValue(form, 'goals'),
+    message: buildApplicationSummary(form),
+  };
+}
+
+function web3FormsSucceeded(data) {
+  return Boolean(data && data.success === true);
 }
 
 function showFormBanner(form, message, type = 'success') {
@@ -162,19 +178,53 @@ function showFormBanner(form, message, type = 'success') {
   form.insertBefore(banner, form.firstChild);
 }
 
-function handleApplicationSubmit(e) {
+function deliverApplicationViaMailto(form) {
+  const summary = buildApplicationSummary(form);
+  const subject = encodeURIComponent(applicationSubject(form));
+  const body = encodeURIComponent(summary);
+  window.location.href = `mailto:${APPLICATION_EMAIL}?subject=${subject}&body=${body}`;
+}
+
+async function handleApplicationSubmit(e) {
+  e.preventDefault();
   const form = e.target;
-  if (form.querySelector('[name="botcheck"]')?.checked) {
-    e.preventDefault();
-    return;
-  }
+  const btn = form.querySelector('.form-submit');
+  if (!btn || btn.disabled) return;
+
+  if (form.querySelector('[name="botcheck"]')?.checked) return;
 
   syncFormHiddenFields(form);
+  form.querySelector('.form-error-banner')?.remove();
 
-  const btn = form.querySelector('.form-submit');
-  if (btn && !btn.disabled) {
-    btn.disabled = true;
-    btn.textContent = 'Sending...';
+  const originalText = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(buildWeb3FormsPayload(form)),
+    });
+    const data = await res.json().catch(() => ({}));
+
+    if (web3FormsSucceeded(data)) {
+      window.location.href = APPLICATION_RETURN_URL;
+      return;
+    }
+
+    const errMsg = data.message || data.body?.message || data.error || 'Submission failed. Please try again.';
+    showFormBanner(form, `${errMsg} Opening your email app as a backup...`, 'error');
+    deliverApplicationViaMailto(form);
+  } catch {
+    showFormBanner(form, 'Connection issue — opening your email app so you can send the application directly.', 'error');
+    deliverApplicationViaMailto(form);
+  } finally {
+    btn.textContent = originalText;
+    btn.disabled = false;
   }
 }
 
