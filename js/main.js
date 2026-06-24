@@ -1,6 +1,6 @@
 const APPLICATION_EMAIL = 'wayne@motorcitycreators.com';
 const APPLICATION_RETURN_URL = 'https://www.motorcitycreators.com/about.html?submitted=1';
-const FORMSUBMIT_AJAX = `https://formsubmit.co/ajax/${APPLICATION_EMAIL}`;
+const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
 
 const SOCIAL_TEMPLATE_PATHS = [
   '/assets/footer-socials.html',
@@ -8,6 +8,14 @@ const SOCIAL_TEMPLATE_PATHS = [
   '/includes/footer-socials.html',
   'includes/footer-socials.html',
 ];
+
+function getFormAccessKey() {
+  const cfg = window.MCCG_FORM_CONFIG || {};
+  const fromConfig = String(cfg.accessKey || '').trim();
+  if (fromConfig) return fromConfig;
+  const hidden = document.querySelector('.application-form [name="access_key"]');
+  return hidden ? String(hidden.value || '').trim() : '';
+}
 
 async function loadSocialTemplate() {
   for (const path of SOCIAL_TEMPLATE_PATHS) {
@@ -102,6 +110,11 @@ function buildApplicationSummary(form) {
   return lines.join('\n');
 }
 
+function applicationSubject(form) {
+  const name = `${fieldValue(form, 'first_name')} ${fieldValue(form, 'last_name')}`.trim();
+  return name ? `New MCC Application — ${name}` : 'New Motor City Creators Application';
+}
+
 function ensureHiddenField(form, name, value) {
   let el = form.querySelector(`[name="${name}"]`);
   if (!el) {
@@ -118,31 +131,43 @@ function syncFormHiddenFields(form) {
   ensureHiddenField(form, 'message', summary);
   ensureHiddenField(form, 'application_summary', summary);
 
-  const next = form.querySelector('[name="_next"]');
-  if (next) next.value = APPLICATION_RETURN_URL;
+  const redirect = form.querySelector('[name="redirect"]');
+  if (redirect) redirect.value = APPLICATION_RETURN_URL;
 
-  const subject = form.querySelector('[name="_subject"]');
-  if (subject) {
-    const name = `${fieldValue(form, 'first_name')} ${fieldValue(form, 'last_name')}`.trim();
-    subject.value = name ? `New MCC Application — ${name}` : 'New Motor City Creators Application';
-  }
+  const subject = form.querySelector('[name="subject"]');
+  if (subject) subject.value = applicationSubject(form);
+
+  const accessKey = getFormAccessKey();
+  if (accessKey) ensureHiddenField(form, 'access_key', accessKey);
 
   const email = fieldValue(form, 'email');
-  if (!email) return;
-
-  ensureHiddenField(form, '_replyto', email);
+  if (email) {
+    ensureHiddenField(form, 'replyto', email);
+  }
 }
 
-function formDataToUrlEncoded(form) {
-  const params = new URLSearchParams();
-  new FormData(form).forEach((value, key) => {
-    if (typeof value === 'string') params.append(key, value);
-  });
-  return params.toString();
+function buildWeb3FormsPayload(form) {
+  const first = fieldValue(form, 'first_name');
+  const last = fieldValue(form, 'last_name');
+  return {
+    access_key: getFormAccessKey(),
+    subject: applicationSubject(form),
+    from_name: 'Motor City Creators Website',
+    name: `${first} ${last}`.trim(),
+    email: fieldValue(form, 'email'),
+    replyto: fieldValue(form, 'email'),
+    phone: fieldValue(form, 'phone'),
+    main_social: fieldValue(form, 'main_social'),
+    what_you_do: fieldValue(form, 'what_you_do'),
+    interest: fieldValue(form, 'interest'),
+    goals: fieldValue(form, 'goals'),
+    message: buildApplicationSummary(form),
+    botcheck: false,
+  };
 }
 
-function formSubmitSucceeded(data) {
-  return data && (data.success === true || data.success === 'true');
+function web3FormsSucceeded(data) {
+  return data && data.success === true;
 }
 
 function showFormBanner(form, message, type = 'success') {
@@ -151,6 +176,13 @@ function showFormBanner(form, message, type = 'success') {
   banner.className = type === 'error' ? 'form-error-banner' : 'form-status-banner';
   banner.textContent = message;
   form.insertBefore(banner, form.firstChild);
+}
+
+function deliverApplicationViaMailto(form) {
+  const summary = buildApplicationSummary(form);
+  const subject = encodeURIComponent(applicationSubject(form));
+  const body = encodeURIComponent(summary);
+  window.location.href = `mailto:${APPLICATION_EMAIL}?subject=${subject}&body=${body}`;
 }
 
 function deliverApplicationNatively(form) {
@@ -165,9 +197,20 @@ async function handleApplicationSubmit(e) {
   const btn = form.querySelector('.form-submit');
   if (!btn || btn.disabled) return;
 
-  if (form.querySelector('[name="_honey"]')?.value) return;
+  if (form.querySelector('[name="botcheck"]')?.checked) return;
 
   syncFormHiddenFields(form);
+
+  const accessKey = getFormAccessKey();
+  if (!accessKey) {
+    showFormBanner(
+      form,
+      'Form delivery is being set up. Your application will open in your email app — tap Send to deliver it to Wayne.',
+      'error'
+    );
+    deliverApplicationViaMailto(form);
+    return;
+  }
 
   const originalText = btn.textContent;
   btn.disabled = true;
@@ -175,28 +218,29 @@ async function handleApplicationSubmit(e) {
   form.querySelector('.form-error-banner')?.remove();
 
   try {
-    const res = await fetch(FORMSUBMIT_AJAX, {
+    const res = await fetch(WEB3FORMS_ENDPOINT, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        'Content-Type': 'application/json',
       },
-      body: formDataToUrlEncoded(form),
+      body: JSON.stringify(buildWeb3FormsPayload(form)),
     });
     const data = await res.json().catch(() => ({}));
 
-    if (formSubmitSucceeded(data)) {
+    if (web3FormsSucceeded(data)) {
       window.location.href = APPLICATION_RETURN_URL;
       return;
     }
 
-    const message = (data.message || '').toLowerCase();
-    if (message.includes('activation')) {
+    const message = String(data.message || data.body?.message || '').toLowerCase();
+    if (message.includes('access') || message.includes('invalid') || res.status === 400) {
       showFormBanner(
         form,
-        'Almost there — check wayne@motorcitycreators.com for a FormSubmit activation email and click the link once. Then submit again.',
+        'Email delivery hiccup — opening your mail app so you can send the application directly to Wayne.',
         'error'
       );
+      deliverApplicationViaMailto(form);
       btn.textContent = originalText;
       btn.disabled = false;
       return;

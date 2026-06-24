@@ -36,6 +36,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 }
 .promo-card{background:var(--card);border:1px solid var(--border);padding:20px;width:100%;max-width:400px;justify-self:center;text-align:center}
 .promo-card video{width:100%;border-radius:4px;display:block;background:#000}
+.promo-demo-frame{width:100%;aspect-ratio:9/16;max-height:420px;margin:0 auto;background:#000;border-radius:4px;overflow:hidden;border:1px solid var(--border)}
+.promo-demo-frame iframe{width:100%;height:100%;border:0;display:block;pointer-events:none}
 .promo-card h3{font-family:var(--display);font-size:1.2rem;text-transform:uppercase;margin:14px 0 8px}
 .promo-card p{font-size:.8rem;color:var(--muted);line-height:1.6;margin-bottom:14px}
 .promo-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
@@ -195,17 +197,17 @@ section{padding:90px clamp(20px,4vw,56px)}
 .contact-val{font-size:.95rem;color:var(--white)}
 
 /* SOCIAL — small white icons (footer, hero, contact) */
-.footer-socials,.hero-socials .footer-socials,.contact-socials .footer-socials{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:0}
-.footer-social{width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.28);border-radius:50%;color:#fff;transition:all .2s;flex-shrink:0}
+.footer-socials,.hero-socials .footer-socials,.contact-socials .footer-socials{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:0;position:relative;z-index:2}
+.footer-social{width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.28);border-radius:50%;color:#fff;transition:all .2s;flex-shrink:0;position:relative;z-index:1;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .footer-social:hover{border-color:var(--gold);color:#fff;background:rgba(255,255,255,.08)}
-.footer-social svg{width:10px;height:10px;fill:#fff;display:block}
+.footer-social svg{width:10px;height:10px;fill:#fff;display:block;pointer-events:none}
 
 .social-section{background:var(--card);border:1px solid var(--border);padding:24px;margin-top:24px;text-align:center}
 .social-title{font-family:var(--sub);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:12px}
 .contact-socials{display:flex;justify-content:center}
 
 /* FOOTER */
-footer{background:var(--black);padding:28px clamp(20px,4vw,40px) 16px;border-top:1px solid var(--border);text-align:center}
+footer{background:var(--black);padding:28px clamp(20px,4vw,40px) 16px;border-top:1px solid var(--border);text-align:center;position:relative;z-index:1}
 .footer-grid{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:14px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border)}
 .footer-logo{display:flex;flex-direction:column;align-items:center}
 .footer-logo img{height:36px;margin-bottom:8px}
@@ -215,7 +217,7 @@ footer{background:var(--black);padding:28px clamp(20px,4vw,40px) 16px;border-top
 .footer-col li{margin-bottom:0}
 .footer-col a{font-size:.78rem;color:var(--muted);transition:color .2s}
 .footer-col a:hover{color:var(--white)}
-.footer-bottom{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding-bottom:0}
+.footer-bottom{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding-bottom:0;position:relative;z-index:2}
 .footer-bottom p{font-size:.68rem;color:var(--muted);margin:0;line-height:1.5}
 .footer-bottom a{color:var(--gold)}
 
@@ -277,7 +279,9 @@ body[data-page="home"] .promo-section .promo-grid{max-width:848px;margin-left:au
   .quick-tab:last-child{border-right:none}
   .quick-tab span{opacity:1}
   .quick-tab::before{display:none}
-  footer{padding:20px clamp(16px,4vw,24px) 12px}
+  footer{padding:20px clamp(16px,4vw,24px) 72px}
+  .footer-social{width:28px;height:28px}
+  .footer-social svg{width:12px;height:12px}
   .hero-wrap,.math-grid,.contact-grid,.stats-grid,.services-grid,.results-grid,.process-steps{grid-template-columns:1fr}
   body[data-page="home"] .services-grid{display:flex}
   body[data-page="home"] .services-grid .svc{max-width:100%}
