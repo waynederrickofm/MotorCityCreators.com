@@ -147,27 +147,21 @@ function syncFormHiddenFields(form) {
   if (email) ensureHiddenField(form, 'replyto', email);
 }
 
-function buildWeb3FormsPayload(form) {
-  const first = fieldValue(form, 'first_name');
-  const last = fieldValue(form, 'last_name');
-  return {
-    access_key: getFormAccessKey(form),
-    subject: applicationSubject(form),
-    from_name: 'Motor City Creators Website',
-    name: `${first} ${last}`.trim(),
-    email: fieldValue(form, 'email'),
-    replyto: fieldValue(form, 'email'),
-    phone: fieldValue(form, 'phone'),
-    main_social: fieldValue(form, 'main_social'),
-    what_you_do: fieldValue(form, 'what_you_do'),
-    interest: fieldValue(form, 'interest'),
-    goals: fieldValue(form, 'goals'),
-    message: buildApplicationSummary(form),
-  };
+function buildWeb3FormsFormData(form) {
+  syncFormHiddenFields(form);
+  const formData = new FormData(form);
+  formData.set('access_key', getFormAccessKey(form));
+  formData.set('subject', applicationSubject(form));
+  formData.set('from_name', 'Motor City Creators Website');
+  formData.set('name', `${fieldValue(form, 'first_name')} ${fieldValue(form, 'last_name')}`.trim());
+  formData.set('message', buildApplicationSummary(form));
+  const email = fieldValue(form, 'email');
+  if (email) formData.set('replyto', email);
+  return formData;
 }
 
-function web3FormsSucceeded(data) {
-  return Boolean(data && data.success === true);
+function web3FormsSucceeded(response, data) {
+  return response.ok && data.success === true;
 }
 
 function showFormBanner(form, message, type = 'success') {
@@ -201,17 +195,13 @@ async function handleApplicationSubmit(e) {
   btn.textContent = 'Sending...';
 
   try {
-    const res = await fetch('https://api.web3forms.com/submit', {
+    const response = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify(buildWeb3FormsPayload(form)),
+      body: buildWeb3FormsFormData(form),
     });
-    const data = await res.json().catch(() => ({}));
+    const data = await response.json().catch(() => ({}));
 
-    if (web3FormsSucceeded(data)) {
+    if (web3FormsSucceeded(response, data)) {
       window.location.href = APPLICATION_RETURN_URL;
       return;
     }
