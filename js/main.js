@@ -1,6 +1,6 @@
 const APPLICATION_EMAIL = 'wayne@motorcitycreators.com';
 const APPLICATION_RETURN_URL = 'https://www.motorcitycreators.com/about.html?submitted=1';
-const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
+const WEB3FORMS_ACCESS_KEY = '8a96ee80-5612-42c5-bb18-7d74c861fe47';
 
 const SOCIAL_TEMPLATE_PATHS = [
   '/assets/footer-socials.html',
@@ -9,12 +9,21 @@ const SOCIAL_TEMPLATE_PATHS = [
   'includes/footer-socials.html',
 ];
 
-function getFormAccessKey() {
+function getFormAccessKey(form) {
   const cfg = window.MCCG_FORM_CONFIG || {};
   const fromConfig = String(cfg.accessKey || '').trim();
   if (fromConfig) return fromConfig;
-  const hidden = document.querySelector('.application-form [name="access_key"]');
-  return hidden ? String(hidden.value || '').trim() : '';
+
+  const scope = form || document.querySelector('.application-form');
+  const hidden = scope?.querySelector('[name="access_key"]');
+  const fromHidden = hidden ? String(hidden.value || '').trim() : '';
+  if (fromHidden) return fromHidden;
+
+  return WEB3FORMS_ACCESS_KEY;
+}
+
+function getWeb3FormsEndpoint(form) {
+  return `https://api.web3forms.com/submit/${getFormAccessKey(form)}`;
 }
 
 async function loadSocialTemplate() {
@@ -137,8 +146,9 @@ function syncFormHiddenFields(form) {
   const subject = form.querySelector('[name="subject"]');
   if (subject) subject.value = applicationSubject(form);
 
-  const accessKey = getFormAccessKey();
-  if (accessKey) ensureHiddenField(form, 'access_key', accessKey);
+  const accessKey = getFormAccessKey(form);
+  ensureHiddenField(form, 'access_key', accessKey);
+  form.action = getWeb3FormsEndpoint(form);
 
   const email = fieldValue(form, 'email');
   if (email) {
@@ -149,8 +159,9 @@ function syncFormHiddenFields(form) {
 function buildWeb3FormsPayload(form) {
   const first = fieldValue(form, 'first_name');
   const last = fieldValue(form, 'last_name');
+  const accessKey = getFormAccessKey(form);
   return {
-    access_key: getFormAccessKey(),
+    access_key: accessKey,
     subject: applicationSubject(form),
     from_name: 'Motor City Creators Website',
     name: `${first} ${last}`.trim(),
@@ -201,7 +212,7 @@ async function handleApplicationSubmit(e) {
 
   syncFormHiddenFields(form);
 
-  const accessKey = getFormAccessKey();
+  const accessKey = getFormAccessKey(form);
   if (!accessKey) {
     showFormBanner(
       form,
@@ -218,7 +229,7 @@ async function handleApplicationSubmit(e) {
   form.querySelector('.form-error-banner')?.remove();
 
   try {
-    const res = await fetch(WEB3FORMS_ENDPOINT, {
+    const res = await fetch(getWeb3FormsEndpoint(form), {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -282,6 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
   showSubmittedBanner();
 
   document.querySelectorAll('.application-form').forEach((form) => {
+    syncFormHiddenFields(form);
     form.addEventListener('submit', handleApplicationSubmit);
   });
 
