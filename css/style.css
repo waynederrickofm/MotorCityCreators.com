@@ -23,8 +23,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 .nav-brand img{height:48px;max-width:min(280px,52vw);width:auto;display:block;object-fit:contain}
 .footer-logo img{height:40px;max-width:240px;width:auto;object-fit:contain;margin-bottom:12px}
 .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
-.promo-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:24px;margin-top:8px;max-width:920px;margin-left:auto;margin-right:auto}
-.promo-card{background:var(--card);border:1px solid var(--border);padding:20px;flex:1 1 300px;max-width:420px;text-align:center}
+.promo-section .container{display:flex;flex-direction:column;align-items:center}
+.promo-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,400px));
+  justify-content:center;
+  gap:24px;
+  width:100%;
+  max-width:848px;
+  margin:24px auto 0;
+  padding:0;
+}
+.promo-card{background:var(--card);border:1px solid var(--border);padding:20px;width:100%;max-width:400px;justify-self:center;text-align:center}
 .promo-card video{width:100%;border-radius:4px;display:block;background:#000}
 .promo-card h3{font-family:var(--display);font-size:1.2rem;text-transform:uppercase;margin:14px 0 8px}
 .promo-card p{font-size:.8rem;color:var(--muted);line-height:1.6;margin-bottom:14px}
@@ -248,22 +258,9 @@ body[data-page="home"] .services-grid .svc{
 }
 body[data-page="home"] .services-grid .svc-icon,
 body[data-page="home"] .services-grid .svc-tag{display:block}
-body[data-page="home"] .promo-grid{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:24px;
-  max-width:920px;
-  margin:0 auto;
-}
-body[data-page="home"] .promo-card{
-  flex:1 1 300px;
-  max-width:420px;
-  text-align:center;
-}
-body[data-page="home"] .promo-actions{justify-content:center}
 body[data-page="home"] section .container{width:100%;display:flex;flex-direction:column;align-items:center}
 body[data-page="home"] .section-head.center{width:100%}
+body[data-page="home"] .promo-section .promo-grid{max-width:848px;margin-left:auto;margin-right:auto}
 
 @media(max-width:900px){
   body{padding-left:0;padding-right:0;padding-bottom:56px}
@@ -279,7 +276,7 @@ body[data-page="home"] .section-head.center{width:100%}
   .hero-wrap,.math-grid,.contact-grid,.stats-grid,.services-grid,.results-grid,.process-steps{grid-template-columns:1fr}
   body[data-page="home"] .services-grid{display:flex}
   body[data-page="home"] .services-grid .svc{max-width:100%}
-  body[data-page="home"] .promo-card{max-width:100%}
+  .promo-grid{grid-template-columns:1fr;max-width:400px;margin-left:auto;margin-right:auto}
   .promo-card{max-width:100%}
   .form-row{grid-template-columns:1fr}
 }
