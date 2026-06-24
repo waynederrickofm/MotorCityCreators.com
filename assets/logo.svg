@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 120" fill="none" role="img" aria-label="Motor City Creators">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E2C04A"/>
+      <stop offset="50%" stop-color="#C9A227"/>
+      <stop offset="100%" stop-color="#8A7020"/>
+    </linearGradient>
+    <linearGradient id="roadGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#C9A227" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#C9A227" stop-opacity="0.35"/>
+    </linearGradient>
+  </defs>
+  <!-- Mark: MCC monogram + road -->
+  <rect x="4" y="4" width="112" height="112" rx="4" fill="#0A0A0A" stroke="url(#goldGrad)" stroke-width="2"/>
+  <path d="M28 88 L28 32 L52 32 L68 58 L84 32 L108 32 L108 88 L88 88 L88 52 L68 78 L48 52 L48 88 Z" fill="url(#goldGrad)"/>
+  <path d="M18 96 L102 96" stroke="#C9A227" stroke-width="3" stroke-dasharray="8 6" opacity="0.6"/>
+  <path d="M60 96 L58 108 L62 108 Z" fill="#C9A227" opacity="0.8"/>
+  <!-- Wordmark -->
+  <text x="132" y="48" fill="#FFFFFF" font-family="'Bebas Neue', Impact, sans-serif" font-size="38" letter-spacing="6">MOTOR CITY</text>
+  <text x="132" y="88" fill="url(#goldGrad)" font-family="'Bebas Neue', Impact, sans-serif" font-size="44" letter-spacing="4">CREATORS</text>
+  <text x="132" y="108" fill="#666666" font-family="Montserrat, sans-serif" font-size="9" letter-spacing="5" font-weight="600">DETROIT · MICHIGAN · DIGITAL MEDIA</text>
+</svg>

@@ -1,0 +1,304 @@
+/* ============================================================
+   MOTOR CITY CREATORS — SQUARESPACE CUSTOM CSS
+   Paste into: Design → Custom CSS (Squarespace 7.1)
+
+   SETUP STEPS:
+   1. Settings → Advanced → Code Injection → Header:
+      <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+   2. Paste ALL of this file into Design → Custom CSS
+   3. Add class "mcc-section-dark" to dark section blocks
+   4. Add class "mcc-section-gold" to gold CTA blocks
+   5. Add class "mcc-btn-gold" to button blocks
+   6. Upload assets/logo.svg as your site logo
+   ============================================================ */
+
+/* ── BRAND VARIABLES ── */
+:root {
+  --mcc-gold: #C9A227;
+  --mcc-gold-light: #E2C04A;
+  --mcc-gold-dim: #8A7020;
+  --mcc-black: #070707;
+  --mcc-slate: #101010;
+  --mcc-card: #161616;
+  --mcc-border: #2A2A2A;
+  --mcc-white: #FFFFFF;
+  --mcc-muted: #999999;
+}
+
+/* ── GLOBAL ── */
+body {
+  background-color: var(--mcc-black) !important;
+  color: var(--mcc-white) !important;
+  font-family: 'Inter', sans-serif !important;
+}
+
+/* ── HEADER / NAV ── */
+.header {
+  background: rgba(7, 7, 7, 0.96) !important;
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--mcc-border) !important;
+}
+
+.header-nav-item a,
+.header-nav-folder-title {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+  color: var(--mcc-muted) !important;
+  transition: color 0.2s !important;
+}
+
+.header-nav-item a:hover,
+.header-nav-folder-title:hover {
+  color: var(--mcc-gold) !important;
+}
+
+.site-title,
+.site-title a {
+  font-family: 'Bebas Neue', sans-serif !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+  color: var(--mcc-white) !important;
+}
+
+/* ── TYPOGRAPHY ── */
+h1, h2, h3, .sqsrte-large {
+  font-family: 'Bebas Neue', sans-serif !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.02em !important;
+  line-height: 0.95 !important;
+}
+
+h1 { color: var(--mcc-white) !important; }
+h2, h3 { color: var(--mcc-white) !important; }
+
+p, .sqsrte-text {
+  font-family: 'Inter', sans-serif !important;
+  color: var(--mcc-muted) !important;
+  line-height: 1.75 !important;
+}
+
+/* Gold accent text — add class "mcc-gold-text" in Squarespace */
+.mcc-gold-text {
+  color: var(--mcc-gold) !important;
+}
+
+/* Eyebrow labels — add class "mcc-eyebrow" */
+.mcc-eyebrow {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.28em !important;
+  text-transform: uppercase !important;
+  color: var(--mcc-gold) !important;
+  display: block !important;
+  margin-bottom: 12px !important;
+}
+
+/* ── SECTION BACKGROUNDS ── */
+.mcc-section-dark {
+  background-color: var(--mcc-slate) !important;
+}
+
+.mcc-section-black {
+  background-color: var(--mcc-black) !important;
+}
+
+.mcc-section-gold {
+  background: linear-gradient(135deg, var(--mcc-gold-dim) 0%, var(--mcc-gold) 50%, var(--mcc-gold-light) 100%) !important;
+}
+
+.mcc-section-gold h1,
+.mcc-section-gold h2,
+.mcc-section-gold p {
+  color: var(--mcc-black) !important;
+}
+
+/* ── BUTTONS ── */
+.sqs-block-button-element,
+.mcc-btn-gold {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  background-color: var(--mcc-gold) !important;
+  color: var(--mcc-black) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 16px 32px !important;
+  transition: background 0.2s !important;
+}
+
+.sqs-block-button-element:hover,
+.mcc-btn-gold:hover {
+  background-color: var(--mcc-gold-light) !important;
+  opacity: 1 !important;
+}
+
+.mcc-btn-outline {
+  background: transparent !important;
+  color: var(--mcc-white) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
+}
+
+.mcc-btn-outline:hover {
+  border-color: var(--mcc-gold) !important;
+  color: var(--mcc-gold) !important;
+  background: transparent !important;
+}
+
+/* ── CARDS (add class "mcc-card" to code blocks or summary blocks) ── */
+.mcc-card {
+  background: var(--mcc-card) !important;
+  border: 1px solid var(--mcc-border) !important;
+  padding: 32px 24px !important;
+  transition: border-color 0.3s, transform 0.3s !important;
+}
+
+.mcc-card:hover {
+  border-color: rgba(201, 162, 39, 0.45) !important;
+  transform: translateY(-4px) !important;
+}
+
+/* ── STAT NUMBERS ── */
+.mcc-stat {
+  font-family: 'Bebas Neue', sans-serif !important;
+  font-size: 48px !important;
+  color: var(--mcc-gold) !important;
+  line-height: 1 !important;
+}
+
+.mcc-stat-label {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 10px !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+  color: var(--mcc-muted) !important;
+  font-weight: 600 !important;
+}
+
+/* ── PLATFORM PILLS ── */
+.mcc-platform {
+  display: inline-block !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  padding: 8px 14px !important;
+  border: 1px solid var(--mcc-border) !important;
+  color: var(--mcc-muted) !important;
+  margin: 4px !important;
+}
+
+/* ── TICKER BAR (add to announcement bar or code block) ── */
+.mcc-ticker {
+  background: var(--mcc-gold) !important;
+  color: var(--mcc-black) !important;
+  font-family: 'Bebas Neue', sans-serif !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  padding: 12px !important;
+  text-align: center !important;
+}
+
+/* ── FORMS ── */
+.form-field-input,
+.form-field-textarea,
+.form-field-select {
+  background: var(--mcc-card) !important;
+  border: 1px solid var(--mcc-border) !important;
+  color: var(--mcc-white) !important;
+  border-radius: 0 !important;
+  font-family: 'Inter', sans-serif !important;
+}
+
+.form-field-input:focus,
+.form-field-textarea:focus {
+  border-color: var(--mcc-gold) !important;
+  box-shadow: none !important;
+}
+
+.form-button-wrapper .button {
+  background: var(--mcc-gold) !important;
+  color: var(--mcc-black) !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  border-radius: 0 !important;
+}
+
+/* ── FOOTER ── */
+footer.sections {
+  background: var(--mcc-black) !important;
+  border-top: 1px solid var(--mcc-border) !important;
+}
+
+footer p, footer a {
+  color: var(--mcc-muted) !important;
+  font-size: 12px !important;
+}
+
+footer a:hover {
+  color: var(--mcc-gold) !important;
+}
+
+/* ── SOCIAL ICONS ── */
+.sqs-svg-icon--wrapper,
+.sqs-use--icon {
+  fill: var(--mcc-muted) !important;
+  transition: fill 0.2s !important;
+}
+
+.sqs-svg-icon--wrapper:hover .sqs-use--icon {
+  fill: var(--mcc-gold) !important;
+}
+
+/* ── COMPARISON TABLE (paste HTML table in code block) ── */
+.mcc-table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+}
+
+.mcc-table th {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 10px !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase !important;
+  color: var(--mcc-muted) !important;
+  background: var(--mcc-card) !important;
+  padding: 14px 16px !important;
+  border-bottom: 1px solid var(--mcc-border) !important;
+}
+
+.mcc-table td {
+  padding: 14px 16px !important;
+  border-bottom: 1px solid var(--mcc-border) !important;
+  color: var(--mcc-muted) !important;
+  font-size: 14px !important;
+}
+
+.mcc-table td:first-child {
+  color: var(--mcc-white) !important;
+}
+
+.mcc-table .win {
+  color: var(--mcc-gold) !important;
+  font-weight: 700 !important;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: var(--mcc-gold); }
+::-webkit-scrollbar-track { background: var(--mcc-black); }
+
+/* ── MOBILE ── */
+@media (max-width: 767px) {
+  h1 { font-size: 36px !important; }
+  h2 { font-size: 28px !important; }
+  .mcc-stat { font-size: 36px !important; }
+}
