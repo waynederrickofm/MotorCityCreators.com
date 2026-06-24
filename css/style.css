@@ -76,7 +76,7 @@ h1.hero-title{font-family:var(--display);font-size:clamp(2.8rem,6.5vw,5rem);line
 .hero-lead{font-size:1.05rem;color:var(--white);font-weight:500;margin-bottom:10px;font-family:var(--sub)}
 .hero-sub,.page-hero-sub{font-size:.92rem;color:var(--muted);max-width:560px;line-height:1.8}
 .hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0 36px}
-.hero-socials{width:100%;display:flex;justify-content:center;margin:8px 0 2px}
+.hero-socials{width:100%;display:flex;justify-content:center;margin:6px 0 0}
 .btn-gold{font-family:var(--sub);font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:15px 30px;background:var(--gold);color:var(--black);border:none;cursor:pointer;transition:background .2s;display:inline-block}
 .btn-gold:hover{background:var(--gold-light)}
 .btn-outline{font-family:var(--sub);font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:15px 30px;border:1.5px solid rgba(255,255,255,.25);color:var(--white);transition:all .2s;display:inline-block}
@@ -196,19 +196,19 @@ section{padding:90px clamp(20px,4vw,56px)}
 .contact-label{font-family:var(--sub);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:4px}
 .contact-val{font-size:.95rem;color:var(--white)}
 
-/* SOCIAL — small white icons (footer, hero, contact) */
-.footer-socials,.hero-socials .footer-socials,.contact-socials .footer-socials{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:0;position:relative;z-index:2}
-.footer-social,.footer-social:link,.footer-social:visited{width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.28);border-radius:50%;color:#fff;transition:all .2s;flex-shrink:0;position:relative;z-index:1;cursor:pointer;-webkit-tap-highlight-color:transparent;text-decoration:none}
-.footer-social:hover,.footer-social:focus-visible{border-color:var(--gold);color:#fff;background:rgba(255,255,255,.08)}
-.footer-social svg{width:10px;height:10px;max-width:10px;max-height:10px;display:block;pointer-events:none;flex-shrink:0;color:inherit;fill:currentColor}
+/* SOCIAL — compact white icons (footer, hero, contact) */
+.footer-socials,.hero-socials .footer-socials,.contact-socials .footer-socials,.contact-socials > .footer-socials{display:flex;align-items:center;gap:4px;flex-wrap:wrap;justify-content:center;margin:0;padding:0;position:relative;z-index:2;line-height:0}
+.footer-social,.footer-social:link,.footer-social:visited{width:18px;height:18px;min-width:18px;max-width:18px;min-height:18px;max-height:18px;padding:0;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.22);border-radius:50%;color:#fff;transition:border-color .2s,background .2s;flex-shrink:0;position:relative;z-index:1;cursor:pointer;-webkit-tap-highlight-color:transparent;text-decoration:none;overflow:hidden;line-height:0;font-size:0;box-sizing:border-box}
+.footer-social:hover,.footer-social:focus-visible{border-color:var(--gold);color:#fff;background:rgba(255,255,255,.06)}
+.footer-social svg,.footer-social svg[width]{width:7px!important;height:7px!important;min-width:7px!important;max-width:7px!important;min-height:7px!important;max-height:7px!important;display:block;pointer-events:none;flex-shrink:0;color:inherit;fill:currentColor}
 .footer-social svg path{fill:currentColor}
 
-.social-section{background:var(--card);border:1px solid var(--border);padding:24px;margin-top:24px;text-align:center}
-.social-title{font-family:var(--sub);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:12px}
-.contact-socials{display:flex;justify-content:center}
+.social-section{background:var(--card);border:1px solid var(--border);padding:14px 16px;margin-top:16px;text-align:center}
+.social-title{font-family:var(--sub);font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:8px}
+.contact-socials{display:flex;justify-content:center;margin:0;padding:0}
 
 /* FOOTER */
-footer{background:var(--black);padding:28px clamp(20px,4vw,40px) 16px;border-top:1px solid var(--border);text-align:center;position:relative;z-index:1}
+footer{background:var(--black);padding:22px clamp(20px,4vw,40px) 12px;border-top:1px solid var(--border);text-align:center;position:relative;z-index:1}
 .footer-grid{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:14px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border)}
 .footer-logo{display:flex;flex-direction:column;align-items:center}
 .footer-logo img{height:36px;margin-bottom:8px}
@@ -218,7 +218,7 @@ footer{background:var(--black);padding:28px clamp(20px,4vw,40px) 16px;border-top
 .footer-col li{margin-bottom:0}
 .footer-col a{font-size:.78rem;color:var(--muted);transition:color .2s}
 .footer-col a:hover{color:var(--white)}
-.footer-bottom{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding-bottom:0;position:relative;z-index:2}
+.footer-bottom{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;padding-bottom:0;position:relative;z-index:2}
 .footer-bottom p{font-size:.68rem;color:var(--muted);margin:0;line-height:1.5}
 .footer-bottom a{color:var(--gold)}
 
@@ -242,7 +242,7 @@ body[data-page="home"] .hero-wrap > div:first-child{
 }
 body[data-page="home"] .hero-sub{max-width:640px;margin-left:auto;margin-right:auto}
 body[data-page="home"] .platforms-strip{justify-content:center;margin-top:22px}
-body[data-page="home"] .hero-socials{justify-content:center;margin:10px 0 6px}
+body[data-page="home"] .hero-socials{justify-content:center;margin:8px 0 4px}
 body[data-page="home"] .hero-btns{justify-content:center;margin-left:auto;margin-right:auto;margin-top:16px}
 body[data-page="home"] .hero-proof{justify-content:center;width:100%;max-width:520px;margin:0 auto}
 body[data-page="home"] .hero-panel{
