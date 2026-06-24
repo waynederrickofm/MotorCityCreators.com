@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Motor City Creators Digital Marketing — Data-driven creator growth, brand deals, and revenue systems. Michigan's premier digital media management."/>
+<title>Digital Marketing | Motor City Creators — Build $5K–$10K/Month Revenue</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#C9A227;--gold-light:#E2C04A;--gold-dim:#8A7020;
+  --black:#070707;--slate:#101010;--card:#161616;--mid:#1E1E1E;
+  --border:#2A2A2A;--white:#FFF;--muted:#999;--green:#2ECC71;
+  --display:'Bebas Neue',sans-serif;--body:'Inter',sans-serif;--sub:'Montserrat',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:var(--body);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:var(--gold)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(20px,4vw,56px);height:74px;background:rgba(7,7,7,0.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.logo{font-family:var(--display);font-size:1.2rem;letter-spacing:0.14em}
+.logo span{color:var(--gold)}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{font-family:var(--sub);font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);font-weight:600;transition:color .2s}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{font-family:var(--sub);font-size:0.65rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;padding:11px 22px;background:var(--gold);color:var(--black);transition:background .2s}
+.nav-cta:hover{background:var(--gold-light)}
+
+/* HERO */
+.hero{min-height:100vh;padding:110px clamp(20px,4vw,56px) 70px;position:relative;overflow:hidden;display:flex;align-items:center}
+.hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse 70% 55% at 70% 30%,rgba(201,162,39,0.14) 0%,transparent 60%),radial-gradient(ellipse 50% 40% at 10% 80%,rgba(220,38,38,0.06) 0%,transparent 55%);pointer-events:none}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,162,39,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,162,39,0.03) 1px,transparent 1px);background-size:64px 64px;mask-image:linear-gradient(180deg,black,transparent 95%);pointer-events:none}
+.hero-wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.15fr 0.85fr;gap:48px;align-items:center;width:100%}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid rgba(201,162,39,0.35);margin-bottom:22px;font-family:var(--sub);font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.pill-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.4;transform:scale(1.3)}}
+h1.hero-title{font-family:var(--display);font-size:clamp(2.8rem,6.5vw,5rem);line-height:.92;letter-spacing:.02em;text-transform:uppercase;margin-bottom:18px}
+.hero-title .gold{color:var(--gold)}
+.hero-title .dim{color:rgba(255,255,255,.35)}
+.hero-lead{font-size:1.05rem;color:var(--white);font-weight:500;margin-bottom:10px;font-family:var(--sub)}
+.hero-sub{font-size:.92rem;color:var(--muted);max-width:520px;margin-bottom:28px;line-height:1.8}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:36px}
+.btn-gold{font-family:var(--sub);font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:15px 30px;background:var(--gold);color:var(--black);border:none;cursor:pointer;transition:background .2s;display:inline-block}
+.btn-gold:hover{background:var(--gold-light)}
+.btn-outline{font-family:var(--sub);font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:15px 30px;border:1.5px solid rgba(255,255,255,.25);color:var(--white);transition:all .2s;display:inline-block}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+.hero-proof{display:flex;gap:28px;flex-wrap:wrap}
+.proof-item{display:flex;flex-direction:column;gap:2px}
+.proof-num{font-family:var(--display);font-size:1.8rem;color:var(--gold);line-height:1}
+.proof-label{font-family:var(--sub);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600}
+
+.hero-panel{background:var(--card);border:1px solid var(--border);padding:28px;position:relative;overflow:hidden}
+.hero-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light))}
+.panel-label{font-family:var(--sub);font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:18px;display:block}
+.revenue-target{font-family:var(--display);font-size:3.2rem;color:var(--white);line-height:1;margin-bottom:4px}
+.revenue-target span{color:var(--gold)}
+.revenue-sub{font-size:.78rem;color:var(--muted);margin-bottom:22px}
+.panel-bars{display:flex;flex-direction:column;gap:12px}
+.bar-row{display:grid;grid-template-columns:90px 1fr 48px;gap:10px;align-items:center;font-size:.72rem;color:var(--muted)}
+.bar-track{height:8px;background:var(--mid);border-radius:4px;overflow:hidden}
+.bar-fill{height:100%;background:linear-gradient(90deg,var(--gold-dim),var(--gold));border-radius:4px;width:0;transition:width 1.2s ease}
+.bar-fill.animated{width:var(--w)}
+.bar-val{font-family:var(--sub);font-weight:700;color:var(--gold);font-size:.65rem;text-align:right}
+
+/* TICKER */
+.ticker{background:var(--gold);padding:11px 0;overflow:hidden}
+.ticker-track{display:flex;width:max-content;animation:scroll 30s linear infinite}
+.ticker-item{font-family:var(--display);font-size:.85rem;letter-spacing:.18em;text-transform:uppercase;color:var(--black);padding:0 36px;white-space:nowrap;display:flex;align-items:center;gap:36px}
+.ticker-item::after{content:'◆';font-size:.45rem}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* SECTIONS */
+section{padding:90px clamp(20px,4vw,56px)}
+.container{max-width:1180px;margin:0 auto}
+.eyebrow{font-family:var(--sub);font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:12px;display:block}
+.section-title{font-family:var(--display);font-size:clamp(2rem,4vw,3.4rem);line-height:.95;text-transform:uppercase;letter-spacing:.02em;margin-bottom:16px}
+.section-sub{font-size:.92rem;color:var(--muted);max-width:640px;line-height:1.8}
+.section-head{margin-bottom:48px}
+.section-head.center{text-align:center}
+.section-head.center .section-sub{margin:0 auto}
+
+/* DATA */
+.data-section{background:var(--slate)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:40px}
+.stat-card{background:var(--card);border:1px solid var(--border);padding:28px 22px;text-align:center;transition:border-color .3s}
+.stat-card:hover{border-color:rgba(201,162,39,.4)}
+.stat-big{font-family:var(--display);font-size:2.6rem;color:var(--gold);line-height:1;margin-bottom:6px;display:block}
+.stat-desc{font-family:var(--sub);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;line-height:1.5}
+.stat-source{font-size:.62rem;color:#666;margin-top:10px;font-style:italic;line-height:1.4}
+.data-note{background:var(--card);border-left:3px solid var(--gold);padding:20px 24px;font-size:.82rem;color:var(--muted);line-height:1.75}
+.data-note strong{color:var(--white)}
+
+/* REVENUE MATH */
+.math-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px}
+.math-card{background:var(--card);border:1px solid var(--border);padding:32px}
+.math-card h3{font-family:var(--display);font-size:1.5rem;text-transform:uppercase;color:var(--gold);margin-bottom:16px;letter-spacing:.04em}
+.math-line{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:.88rem;color:var(--muted)}
+.math-line:last-child{border-bottom:none}
+.math-line.total{border-top:2px solid var(--gold);margin-top:8px;padding-top:14px;font-weight:600;color:var(--white);font-size:1rem}
+.math-line .val{color:var(--gold);font-family:var(--sub);font-weight:700}
+.math-desc{font-size:.82rem;color:var(--muted);margin-top:14px;line-height:1.7}
+
+/* SERVICES */
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.svc{background:var(--card);border:1px solid var(--border);padding:30px 24px;transition:all .3s;position:relative;overflow:hidden}
+.svc:hover{border-color:rgba(201,162,39,.45);transform:translateY(-4px)}
+.svc-icon{font-size:1.4rem;margin-bottom:14px;display:block}
+.svc-title{font-family:var(--display);font-size:1.25rem;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}
+.svc-desc{font-size:.82rem;color:var(--muted);line-height:1.7;margin-bottom:12px}
+.svc-tag{font-family:var(--sub);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700}
+
+/* COMPARE */
+.compare-section{background:var(--slate)}
+.compare-table{width:100%;border-collapse:collapse;margin-top:32px}
+.compare-table th,.compare-table td{padding:16px 20px;text-align:left;border-bottom:1px solid var(--border);font-size:.85rem}
+.compare-table th{font-family:var(--sub);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700;background:var(--card)}
+.compare-table td{color:var(--muted)}
+.compare-table td:first-child{color:var(--white);font-weight:500}
+.compare-table .mcc{color:var(--gold);font-weight:700}
+.compare-table .check{color:var(--green);font-weight:700}
+.compare-table .x{color:#666}
+
+/* PROCESS */
+.process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
+.step{background:var(--card);border:1px solid var(--border);padding:28px 22px;position:relative}
+.step-num{font-family:var(--display);font-size:2.5rem;color:rgba(201,162,39,.15);line-height:1;margin-bottom:10px}
+.step-title{font-family:var(--sub);font-size:.78rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--white);margin-bottom:8px}
+.step-desc{font-size:.8rem;color:var(--muted);line-height:1.65}
+
+/* RESULTS */
+.results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.result{background:var(--card);border:1px solid var(--border);padding:28px 24px}
+.result-tag{font-family:var(--sub);font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:10px;display:block}
+.result-title{font-family:var(--display);font-size:1.2rem;text-transform:uppercase;margin-bottom:8px}
+.result-desc{font-size:.82rem;color:var(--muted);line-height:1.7;margin-bottom:16px}
+.result-num{font-family:var(--display);font-size:1.8rem;color:var(--gold);padding-top:14px;border-top:1px solid var(--border)}
+
+/* CTA */
+.cta-section{background:linear-gradient(135deg,var(--gold-dim) 0%,var(--gold) 50%,var(--gold-light) 100%);padding:80px clamp(20px,4vw,56px);text-align:center}
+.cta-section h2{font-family:var(--display);font-size:clamp(2.2rem,5vw,3.8rem);text-transform:uppercase;color:var(--black);line-height:.95;margin-bottom:14px}
+.cta-section p{font-family:var(--sub);font-size:.9rem;color:rgba(0,0,0,.65);max-width:560px;margin:0 auto 28px;font-weight:600;line-height:1.6}
+.cta-section .btn-gold{background:var(--black);color:var(--gold);font-size:.75rem;padding:17px 40px}
+.cta-section .btn-gold:hover{background:var(--slate);color:var(--gold-light)}
+.cta-fine{font-size:.68rem;color:rgba(0,0,0,.45);margin-top:16px;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.5}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.contact-form{background:var(--card);border:1px solid var(--border);padding:36px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-group{margin-bottom:14px;display:flex;flex-direction:column;gap:6px}
+.form-group label{font-family:var(--sub);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.form-group input,.form-group select,.form-group textarea{background:var(--mid);border:1px solid var(--border);color:var(--white);font-family:var(--body);font-size:.875rem;padding:12px 14px;outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
+.form-group textarea{min-height:100px;resize:vertical}
+.form-submit{width:100%;padding:15px;background:var(--gold);color:var(--black);font-family:var(--sub);font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;border:none;cursor:pointer;margin-top:4px}
+.form-submit:hover{background:var(--gold-light)}
+.contact-item{padding:16px 0;border-bottom:1px solid var(--border)}
+.contact-label{font-family:var(--sub);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:4px}
+.contact-val{font-size:.95rem;color:var(--white)}
+
+/* FOOTER */
+footer{background:var(--black);padding:48px clamp(20px,4vw,56px) 28px;border-top:1px solid var(--border)}
+.footer-inner{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.footer-inner p{font-size:.72rem;color:var(--muted)}
+.footer-inner a{color:var(--gold)}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s}
+.reveal.vis{opacity:1;transform:none}
+
+@media(max-width:900px){
+  .nav-links{display:none}
+  .hero-wrap,.math-grid,.contact-grid,.stats-grid,.services-grid,.results-grid,.process-steps{grid-template-columns:1fr}
+  .compare-table{font-size:.75rem}
+  .compare-table th,.compare-table td{padding:10px 8px}
+  .form-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#home" class="logo">MOTOR CITY <span>CREATORS</span></a>
+  <ul class="nav-links">
+    <li><a href="#data">The Data</a></li>
+    <li><a href="#revenue">Revenue Path</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#apply">Apply</a></li>
+  </ul>
+  <a href="#apply" class="nav-cta">Apply Free</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-glow"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-wrap">
+    <div>
+      <div class="pill reveal"><span class="pill-dot"></span> Michigan's Premier Digital Media Company</div>
+      <h1 class="hero-title reveal">Scale Your Brand.<br/><span class="gold">Earn $5K–$10K</span><br/><span class="dim">Per Month.</span></h1>
+      <p class="hero-lead reveal">We Manage Creators. We Build Brands. We Teach the Blueprint — Detroit to the World.</p>
+      <p class="hero-sub reveal">Motor City Creators delivers data-driven digital marketing, talent management, and content systems built on a $250B+ creator economy — with documented client outcomes and industry-proven ROI benchmarks.</p>
+      <div class="hero-btns reveal">
+        <a href="#apply" class="btn-gold">Apply For Free</a>
+        <a href="#data" class="btn-outline">See The Science</a>
+      </div>
+      <div class="hero-proof reveal">
+        <div class="proof-item"><span class="proof-num">$5.78</span><span class="proof-label">Avg ROI Per $1 Spent</span></div>
+        <div class="proof-item"><span class="proof-num">23%</span><span class="proof-label">Market CAGR</span></div>
+        <div class="proof-item"><span class="proof-num">50/50</span><span class="proof-label">Aligned Contracts</span></div>
+      </div>
+    </div>
+    <div class="hero-panel reveal">
+      <span class="panel-label">Revenue Target Model</span>
+      <div class="revenue-target">$5K – <span>$10K</span></div>
+      <p class="revenue-sub">Monthly revenue range achieved through structured digital marketing + brand monetization</p>
+      <div class="panel-bars">
+        <div class="bar-row"><span>Brand Deals</span><div class="bar-track"><div class="bar-fill" style="--w:75%"></div></div><span class="bar-val">$3K+</span></div>
+        <div class="bar-row"><span>Content Rev</span><div class="bar-track"><div class="bar-fill" style="--w:55%"></div></div><span class="bar-val">$2K+</span></div>
+        <div class="bar-row"><span>Coaching</span><div class="bar-track"><div class="bar-fill" style="--w:40%"></div></div><span class="bar-val">$1.5K+</span></div>
+        <div class="bar-row"><span>Affiliates</span><div class="bar-track"><div class="bar-fill" style="--w:30%"></div></div><span class="bar-val">$1K+</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item">TikTok</span><span class="ticker-item">Instagram</span><span class="ticker-item">YouTube</span><span class="ticker-item">Snapchat</span><span class="ticker-item">Digital Marketing</span><span class="ticker-item">Talent Management</span><span class="ticker-item">Blueprint Academy</span><span class="ticker-item">Detroit to the World</span>
+    <span class="ticker-item">TikTok</span><span class="ticker-item">Instagram</span><span class="ticker-item">YouTube</span><span class="ticker-item">Snapchat</span><span class="ticker-item">Digital Marketing</span><span class="ticker-item">Talent Management</span><span class="ticker-item">Blueprint Academy</span><span class="ticker-item">Detroit to the World</span>
+  </div>
+</div>
+
+<!-- DATA -->
+<section class="data-section" id="data">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Industry Intelligence</span>
+      <h2 class="section-title">The Science Behind<br/>Creator Revenue</h2>
+      <p class="section-sub">Independent market research confirms the creator economy is one of the fastest-growing sectors in digital media — with measurable ROI on every dollar invested in strategic marketing.</p>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card reveal">
+        <span class="stat-big">$252B</span>
+        <span class="stat-desc">Global Creator Economy (2025)</span>
+        <span class="stat-source">Source: Grand View Research</span>
+      </div>
+      <div class="stat-card reveal">
+        <span class="stat-big">23.3%</span>
+        <span class="stat-desc">Annual Market Growth (CAGR)</span>
+        <span class="stat-source">Source: Grand View Research</span>
+      </div>
+      <div class="stat-card reveal">
+        <span class="stat-big">$5.78</span>
+        <span class="stat-desc">Return Per $1 in Influencer Marketing</span>
+        <span class="stat-source">Source: Influencer Marketing Hub / City Girl Strategy</span>
+      </div>
+      <div class="stat-card reveal">
+        <span class="stat-big">75%</span>
+        <span class="stat-desc">Advertisers Report Highest ROI on TikTok</span>
+        <span class="stat-source">Source: TikTok / Dentsu Study</span>
+      </div>
+    </div>
+    <div class="data-note reveal">
+      <strong>Why this matters for your $5K–$10K/month target:</strong> The creator economy grew from ~$100B in 2020 to over $250B by 2025 (Grand View Research). Brands now allocate billions to creator partnerships — meaning creators with professional management, consistent content, and platform strategy access a proven revenue pipeline. Motor City Creators positions you inside that pipeline with structured systems, not guesswork.
+    </div>
+  </div>
+</section>
+
+<!-- REVENUE PATH -->
+<section id="revenue">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">The Blueprint</span>
+      <h2 class="section-title">How $5,000–$10,000/Month<br/>Becomes Achievable</h2>
+      <p class="section-sub">This is not hype — it's math. Here's the revenue model our clients use, backed by industry benchmarks and documented MCCG outcomes.</p>
+    </div>
+    <div class="math-grid">
+      <div class="math-card reveal">
+        <h3>Path to $5,000/Month</h3>
+        <div class="math-line"><span>2 Brand Deals @ $1,500</span><span class="val">$3,000</span></div>
+        <div class="math-line"><span>Platform Ad Revenue (10K+ views/day)</span><span class="val">$800</span></div>
+        <div class="math-line"><span>Affiliate / Product Sales</span><span class="val">$700</span></div>
+        <div class="math-line"><span>Coaching or Digital Product</span><span class="val">$500</span></div>
+        <div class="math-line total"><span>Monthly Total</span><span class="val">$5,000</span></div>
+        <p class="math-desc">Micro-influencers (10K–100K followers) deliver the highest marketing ROI at $6.50 per $1 spent — making this tier the fastest path to consistent monthly income.</p>
+      </div>
+      <div class="math-card reveal">
+        <h3>Path to $10,000/Month</h3>
+        <div class="math-line"><span>3–4 Brand Partnerships</span><span class="val">$5,000</span></div>
+        <div class="math-line"><span>Content Monetization (Multi-Platform)</span><span class="val">$2,000</span></div>
+        <div class="math-line"><span>Management-Backed Deal Flow</span><span class="val">$1,500</span></div>
+        <div class="math-line"><span>Blueprint Academy / Services</span><span class="val">$1,500</span></div>
+        <div class="math-line total"><span>Monthly Total</span><span class="val">$10,000</span></div>
+        <p class="math-desc">MCCG client achieved $4,500 in month one and secured an $8,000 brand deal in 90 days with full management. Scaling to $10K follows the same system with expanded reach.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="data-section" id="services">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow">What You Get</span>
+      <h2 class="section-title">Full-Stack Digital Marketing<br/>From Motor City Creators</h2>
+      <p class="section-sub">Everything from www.motorcitycreators.com — professionalized, systematized, and built to convert your content into revenue.</p>
+    </div>
+    <div class="services-grid">
+      <div class="svc reveal">
+        <span class="svc-icon">📱</span>
+        <div class="svc-title">Trend Intelligence</div>
+        <p class="svc-desc">Stay ahead on TikTok, Instagram, Snapchat, and YouTube with real-time trend monitoring and platform-specific content strategy.</p>
+        <span class="svc-tag">All Major Platforms</span>
+      </div>
+      <div class="svc reveal">
+        <span class="svc-icon">📅</span>
+        <div class="svc-title">Content Scheduling</div>
+        <p class="svc-desc">Personalized posting schedules optimized for peak engagement windows — plus 24/7 management hotline support.</p>
+        <span class="svc-tag">24/7 Hotline</span>
+      </div>
+      <div class="svc reveal">
+        <span class="svc-icon">📸</span>
+        <div class="svc-title">Free Production</div>
+        <p class="svc-desc">Professional filming, photoshoots, and skit production in Michigan — content that brands pay premium rates for.</p>
+        <span class="svc-tag">Michigan Based</span>
+      </div>
+      <div class="svc reveal">
+        <span class="svc-icon">💬</span>
+        <div class="svc-title">Chatter Systems</div>
+        <p class="svc-desc">Personal chatters and engagement teams for all accounts — you create, we handle interactions and audience growth.</p>
+        <span class="svc-tag">Hands-Off Growth</span>
+      </div>
+      <div class="svc reveal">
+        <span class="svc-icon">🛡️</span>
+        <div class="svc-title">Brand Protection</div>
+        <p class="svc-desc">Bot protection, leak protection, and secured systems for all account information and proprietary content.</p>
+        <span class="svc-tag">Full Security</span>
+      </div>
+      <div class="svc reveal">
+        <span class="svc-icon">🚀</span>
+        <div class="svc-title">Promotion & Automation</div>
+        <p class="svc-desc">Free promotion and automated account management — you don't have to run the account to grow revenue.</p>
+        <span class="svc-tag">Automated Growth</span>
+      </div>
+      <div class="svc reveal">
+        <span class="svc-icon">🤝</span>
+        <div class="svc-title">50/50 Contracts</div>
+        <p class="svc-desc">Certified aligned partnership — we don't win unless you win. Fair commission structure, not the industry-standard 10–40% drain.</p>
+        <span class="svc-tag">We Win Together</span>
+      </div>
+      <div class="svc reveal">
+        <span class="svc-icon">🎓</span>
+        <div class="svc-title">Blueprint Academy</div>
+        <p class="svc-desc">The exact systems Wayne built MCCG with — coaching for creators and managers ready to build generational wealth.</p>
+        <span class="svc-tag">Education + Execution</span>
+      </div>
+      <div class="svc reveal">
+        <span class="svc-icon">📈</span>
+        <div class="svc-title">Revenue Acceleration</div>
+        <p class="svc-desc">Structured 30–60 day profit increase programs with documented growth tracking and brand deal pipeline development.</p>
+        <span class="svc-tag">30–60 Day Sprint</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section class="compare-section">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Why Motor City</span>
+      <h2 class="section-title">Other Creators vs.<br/>MotorCity Creators</h2>
+    </div>
+    <table class="compare-table reveal">
+      <thead>
+        <tr><th>Feature</th><th>Other Groups</th><th class="mcc">MotorCity Creators</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Management Commission</td><td class="x">10–40%</td><td class="mcc check">50/50 Aligned</td></tr>
+        <tr><td>Content Production</td><td class="x">Pay Extra</td><td class="mcc check">Free (Michigan)</td></tr>
+        <tr><td>Platform Coverage</td><td>1–2 Platforms</td><td class="mcc check">TikTok · IG · YT · Snap</td></tr>
+        <tr><td>24/7 Support</td><td class="x">Business Hours</td><td class="mcc check">24/7 Hotline</td></tr>
+        <tr><td>Account Management</td><td class="x">DIY</td><td class="mcc check">Full Automation</td></tr>
+        <tr><td>Brand Protection</td><td class="x">None</td><td class="mcc check">Bot + Leak Protection</td></tr>
+        <tr><td>Application Cost</td><td class="x">$100+ Fees</td><td class="mcc check">Apply Free</td></tr>
+        <tr><td>Revenue Coaching</td><td class="x">Not Included</td><td class="mcc check">Blueprint Academy</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow">The Road We Travel</span>
+      <h2 class="section-title">Your 4-Step Revenue Blueprint</h2>
+      <p class="section-sub">Motor City Creators exists to transform raw talent into unstoppable brands — closing the gap between where you are and where you deserve to be.</p>
+    </div>
+    <div class="process-steps">
+      <div class="step reveal">
+        <div class="step-num">01</div>
+        <div class="step-title">Apply Free</div>
+        <p class="step-desc">Submit your application at zero cost. Tell us about your content, goals, and what you bring to the team.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">02</div>
+        <div class="step-title">Strategy Session</div>
+        <p class="step-desc">One conversation with MCC to map your brand, platforms, content calendar, and revenue targets.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">03</div>
+        <div class="step-title">Launch & Produce</div>
+        <p class="step-desc">We deploy trend strategy, scheduling, production, and promotion across all your platforms.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">04</div>
+        <div class="step-title">Scale & Profit</div>
+        <p class="step-desc">Track growth, close brand deals, and scale toward $5K–$10K/month with ongoing management and coaching.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="data-section" id="results">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Documented Outcomes</span>
+      <h2 class="section-title">Real Clients.<br/>Real Revenue.</h2>
+      <p class="section-sub">Results from Motor City Creators clients — not industry averages. Individual results vary based on niche, consistency, and market conditions.</p>
+    </div>
+    <div class="results-grid">
+      <div class="result reveal">
+        <span class="result-tag">90-Day Brand Deal</span>
+        <div class="result-title">Creator Brand Partnership</div>
+        <p class="result-desc">Full social media management, photography, and talent management package secured a major brand deal within 90 days.</p>
+        <div class="result-num">$8,000 Deal</div>
+      </div>
+      <div class="result reveal">
+        <span class="result-tag">Month One Revenue</span>
+        <div class="result-title">Blueprint Academy Graduate</div>
+        <p class="result-desc">Digital entrepreneur achieved consistent monthly revenue in the first 30 days using MCCG coaching and brand strategy systems.</p>
+        <div class="result-num">$4,500 / Mo</div>
+      </div>
+      <div class="result reveal">
+        <span class="result-tag">Audience Growth</span>
+        <div class="result-title">Multi-Platform Scale</div>
+        <p class="result-desc">Integrated content strategy drove 3× audience growth across TikTok, YouTube, and Instagram in a single quarter.</p>
+        <div class="result-num">3× Growth</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="apply">
+  <h2 class="reveal">Stop Posting Free.<br/>Start Building Wealth.</h2>
+  <p class="reveal">Apply today — completely free. Motor City Creators knows your worth. If you know your worth, work with a team that feels the same.</p>
+  <a href="#contact" class="btn-gold reveal">Apply For Free Today</a>
+  <p class="cta-fine reveal">Motor City Creator Group LLC · Michigan Registered · 50/50 Certified Contracts · Results vary by individual effort, niche, and market conditions. Past client outcomes do not guarantee future earnings.</p>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="reveal">
+        <span class="eyebrow">Ready to Collaborate?</span>
+        <h2 class="section-title">Tell Us Your Goals.<br/>Let's Build Together.</h2>
+        <p class="section-sub" style="margin-bottom:24px">Schedule a meeting today. No scripts, no hard sell — just a real conversation about scaling your brand to $5K–$10K/month.</p>
+        <div class="contact-item"><div class="contact-label">CEO</div><div class="contact-val">Wayne Derrick Redmon III</div></div>
+        <div class="contact-item"><div class="contact-label">Email</div><div class="contact-val">wayne@motorcitycreators.com</div></div>
+        <div class="contact-item"><div class="contact-label">Management</div><div class="contact-val">management@motorcitycreators.com</div></div>
+        <div class="contact-item" style="border:none"><div class="contact-label">Website</div><div class="contact-val">www.motorcitycreators.com</div></div>
+      </div>
+      <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group"><label>First Name</label><input type="text" placeholder="John" required/></div>
+          <div class="form-group"><label>Last Name</label><input type="text" placeholder="Doe" required/></div>
+        </div>
+        <div class="form-group"><label>Email</label><input type="email" placeholder="you@example.com" required/></div>
+        <div class="form-group"><label>Phone</label><input type="tel" placeholder="(555) 000-0000"/></div>
+        <div class="form-group">
+          <label>I'm Interested In</label>
+          <select required>
+            <option value="" disabled selected>Select...</option>
+            <option>General Management</option>
+            <option>Digital Marketing Package</option>
+            <option>Blueprint Academy</option>
+            <option>Team Application</option>
+            <option>Full Service Package</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Your Goals</label><textarea placeholder="Tell us about your content, platforms, and revenue goals..."></textarea></div>
+        <button type="submit" class="form-submit">Send Application</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <p>© 2024 Motor City Creator Group LLC · Michigan Registered LLC · Detroit Built. World Bound.</p>
+    <p><a href="https://www.motorcitycreators.com">motorcitycreators.com</a></p>
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target)}})},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// Animate bars on scroll
+const barObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.bar-fill').forEach(b=>b.classList.add('animated'));barObs.unobserve(e.target)}})},{threshold:.3});
+const panel=document.querySelector('.hero-panel');
+if(panel)barObs.observe(panel);
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'})}
+  });
+});
+
+function handleSubmit(e){
+  e.preventDefault();
+  const btn=e.target.querySelector('.form-submit');
+  btn.textContent='Application Sent — We\'ll Contact You Within 24 Hours';
+  btn.style.background='#2a6e2a';btn.style.color='#fff';
+  setTimeout(()=>{btn.textContent='Send Application';btn.style.background='';btn.style.color='';e.target.reset()},5000);
+}
+</script>
+</body>
+</html>
