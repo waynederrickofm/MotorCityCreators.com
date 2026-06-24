@@ -50,3 +50,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// Any image that can't load is swapped for the Motor City Creators logo,
+// so there are never broken/unavailable pictures on the site.
+(function () {
+  const FALLBACK = 'assets/logo-mark.svg';
+  function applyFallback(img) {
+    if (img.dataset.logoFallback === '1') return;
+    if (!img.getAttribute('src') || img.getAttribute('src').indexOf('logo-mark.svg') !== -1) return;
+    img.dataset.logoFallback = '1';
+    img.src = FALLBACK;
+    img.style.objectFit = 'contain';
+    img.style.background = '#0A0A0A';
+  }
+  function scan() {
+    document.querySelectorAll('img').forEach((img) => {
+      img.addEventListener('error', () => applyFallback(img));
+      if (img.complete && img.naturalWidth === 0) applyFallback(img);
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', scan);
+  } else {
+    scan();
+  }
+})();
