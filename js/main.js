@@ -54,10 +54,11 @@ document.addEventListener('DOMContentLoaded', () => {
 // Any image that can't load is swapped for the Motor City Creators logo,
 // so there are never broken/unavailable pictures on the site.
 (function () {
-  const FALLBACK = 'assets/logo-mark.svg';
+  const FALLBACK = 'assets/logo-brand.png';
   function applyFallback(img) {
     if (img.dataset.logoFallback === '1') return;
-    if (!img.getAttribute('src') || img.getAttribute('src').indexOf('logo-mark.svg') !== -1) return;
+    const src = img.getAttribute('src') || '';
+    if (src.indexOf('logo-brand.png') !== -1 || src.indexOf('logo-mark.svg') !== -1) return;
     img.dataset.logoFallback = '1';
     img.src = FALLBACK;
     img.style.objectFit = 'contain';
