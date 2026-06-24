@@ -14,9 +14,10 @@ A static marketing website (plain HTML/CSS/JS, no framework, no build step) for 
 - **Pages:** `index.html`, `about.html`, `services.html`, `revenue.html`,
   `results.html`, `contact.html`, and the standalone `MotorCity_Digital_Marketing.html`.
 - **Contact/application form** (`contact.html` + `js/main.js`): submits via
-  [FormSubmit](https://formsubmit.co) AJAX to `wayne@motorcitycreators.com`. Requires a
-  one-time activation link in that inbox on first submission. Forms use class
-  `application-form` and collect `main_social` + `what_you_do` fields.
+  [FormSubmit](https://formsubmit.co) to `wayne@motorcitycreators.com`. **One-time activation
+  required:** FormSubmit emails an "Activate Form" link to that inbox (check spam). Until
+  activated, applications are not delivered — the handler now checks the API `success`
+  field instead of showing a false confirmation. Forms use class `application-form`.
 - **External dependency:** Google Fonts CDN is used for brand fonts only; the site
   renders fine with fallback fonts if the CDN is blocked.
 - **Lint/test/build:** None are defined for this project (no tooling configured).

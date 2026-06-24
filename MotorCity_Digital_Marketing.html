@@ -478,7 +478,11 @@ footer{background:var(--black);padding:48px clamp(20px,4vw,56px) 28px;border-top
         <div class="contact-item"><div class="contact-label">Email</div><div class="contact-val">wayne@motorcitycreators.com</div></div>
         <div class="contact-item" style="border:none"><div class="contact-label">Website</div><div class="contact-val">www.motorcitycreators.com</div></div>
       </div>
-      <form class="contact-form application-form reveal">
+      <form class="contact-form application-form reveal" action="https://formsubmit.co/wayne@motorcitycreators.com" method="POST">
+        <input type="hidden" name="_subject" value="New Motor City Creators Application"/>
+        <input type="hidden" name="_template" value="table"/>
+        <input type="hidden" name="_captcha" value="false"/>
+        <input type="hidden" name="_next" value="https://www.motorcitycreators.com/contact.html?submitted=1"/>
         <p style="font-size:.8rem;color:var(--muted);line-height:1.65;margin-bottom:18px">Include your <strong style="color:var(--white)">main social @</strong> and tell us <strong style="color:var(--white)">what you do</strong>. Sent to wayne@motorcitycreators.com.</p>
         <div class="form-row">
           <div class="form-group"><label for="first_name">First Name</label><input id="first_name" name="first_name" type="text" placeholder="John" required/></div>
