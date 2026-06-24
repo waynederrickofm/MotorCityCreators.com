@@ -20,3 +20,13 @@ A static marketing website (plain HTML/CSS/JS, no framework, no build step) for 
 - **External dependency:** Google Fonts CDN is used for brand fonts only; the site
   renders fine with fallback fonts if the CDN is blocked.
 - **Lint/test/build:** None are defined for this project (no tooling configured).
+- **Brand assets:** `assets/brand/` holds the logo set (`logo-primary.png`, `logo-icon.png`
+  social avatar, `social-banner.png` cover, `logo-light.png`). `logo-icon.png` is the
+  square social/app avatar; `social-banner.png` is used as the `og:image` on `index.html`.
+- **Promo videos:** `assets/promo/brand-promo.mp4` (16:9) and `social-promo-square.mp4`
+  (1:1) are animated brand promos. `promo.html` / `promo-square.html` are the
+  self-contained CSS animations behind them; the `.mp4` files were rendered with `ffmpeg`
+  from `assets/brand/` images (DejaVu fonts), so they can be regenerated without a browser.
+- **Socials:** All pages link the same 6 platforms (Instagram, TikTok, YouTube, Discord,
+  Threads, X) via the footer `.footer-socials` icon bar; `contact.html` also has a labeled
+  `.social-section`. Update handles in one place per file if they change.
