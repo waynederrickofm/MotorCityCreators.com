@@ -1,5 +1,62 @@
 const APPLICATION_EMAIL = 'wayne@motorcitycreators.com';
 
+async function loadSocialTemplate() {
+  try {
+    const res = await fetch('includes/footer-socials.html');
+    if (res.ok) return await res.text();
+  } catch {
+    /* fall through */
+  }
+  return '';
+}
+
+async function setupSocialBars() {
+  const template = await loadSocialTemplate();
+
+  const heroMount = document.getElementById('hero-socials');
+  if (heroMount && template) {
+    heroMount.innerHTML = template.trim();
+  }
+
+  document.querySelectorAll('footer').forEach((footer) => {
+    let bottom = footer.querySelector('.footer-bottom');
+    if (!bottom) {
+      bottom = document.createElement('div');
+      bottom.className = 'footer-bottom';
+      const legacy = footer.querySelector('.footer-inner');
+      if (legacy) {
+        while (legacy.firstChild) bottom.appendChild(legacy.firstChild);
+        legacy.replaceWith(bottom);
+      } else {
+        footer.appendChild(bottom);
+      }
+    }
+
+    let socials = footer.querySelector('.footer-socials');
+
+    if (template) {
+      const wrap = document.createElement('div');
+      wrap.innerHTML = template.trim();
+      const fresh = wrap.firstElementChild;
+      if (socials) {
+        socials.replaceWith(fresh);
+      } else {
+        bottom.insertBefore(fresh, bottom.firstChild);
+      }
+      socials = fresh;
+    } else if (!socials) {
+      /* no template and no existing icons */
+    } else if (!bottom.contains(socials)) {
+      bottom.insertBefore(socials, bottom.firstChild);
+    }
+
+    footer.querySelectorAll('.footer-col').forEach((col) => {
+      const heading = col.querySelector('h5');
+      if (heading && heading.textContent.trim().toLowerCase() === 'connect') col.remove();
+    });
+  });
+}
+
 async function handleApplicationSubmit(e) {
   e.preventDefault();
   const form = e.target;
@@ -47,6 +104,8 @@ async function handleApplicationSubmit(e) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  setupSocialBars();
+
   document.querySelectorAll('.application-form').forEach((form) => {
     form.addEventListener('submit', handleApplicationSubmit);
   });
