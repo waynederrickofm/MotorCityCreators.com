@@ -186,6 +186,10 @@ footer{background:var(--black);padding:48px clamp(20px,4vw,56px) 28px;border-top
 .footer-bottom{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
 .footer-bottom p{font-size:.72rem;color:var(--muted)}
 .footer-bottom a{color:var(--gold)}
+.footer-socials{display:flex;gap:10px;flex-wrap:wrap}
+.footer-social{width:42px;height:42px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:50%;color:var(--muted);transition:all .25s}
+.footer-social:hover{border-color:var(--gold);color:var(--black);background:var(--gold);transform:translateY(-2px)}
+.footer-social svg{width:18px;height:18px;fill:currentColor}
 
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s}
 .reveal.vis{opacity:1;transform:none}
