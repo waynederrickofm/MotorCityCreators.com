@@ -1,11 +1,20 @@
 const APPLICATION_EMAIL = 'wayne@motorcitycreators.com';
 
+const SOCIAL_TEMPLATE_PATHS = [
+  '/assets/footer-socials.html',
+  'assets/footer-socials.html',
+  '/includes/footer-socials.html',
+  'includes/footer-socials.html',
+];
+
 async function loadSocialTemplate() {
-  try {
-    const res = await fetch('includes/footer-socials.html');
-    if (res.ok) return await res.text();
-  } catch {
-    /* fall through */
+  for (const path of SOCIAL_TEMPLATE_PATHS) {
+    try {
+      const res = await fetch(path);
+      if (res.ok) return await res.text();
+    } catch {
+      /* try next path */
+    }
   }
   return '';
 }

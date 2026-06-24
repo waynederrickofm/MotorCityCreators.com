@@ -28,6 +28,6 @@ A static marketing website (plain HTML/CSS/JS, no framework, no build step) for 
   (1:1) are animated brand promos. `promo.html` / `promo-square.html` are the
   self-contained CSS animations behind them; the `.mp4` files were rendered with `ffmpeg`
   from `assets/brand/` images (DejaVu fonts), so they can be regenerated without a browser.
-- **Socials:** Canonical handles in `includes/footer-socials.html` (injected into every page
+- **Socials:** Canonical handles in `assets/footer-socials.html` (also in `includes/`; injected into every page
   footer by `js/main.js`); `contact.html` also has a labeled `.social-section`. Platforms:
   Instagram, TikTok (@koolaidwittak), Snapchat (wwayyynee), YouTube, Discord, Threads, X.
