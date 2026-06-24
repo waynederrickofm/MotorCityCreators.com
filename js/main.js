@@ -1,4 +1,6 @@
 const APPLICATION_EMAIL = 'wayne@motorcitycreators.com';
+const APPLICATION_RETURN_URL = 'https://www.motorcitycreators.com/about.html?submitted=1';
+const FORMSUBMIT_AJAX = `https://formsubmit.co/ajax/${APPLICATION_EMAIL}`;
 
 const SOCIAL_TEMPLATE_PATHS = [
   '/assets/footer-socials.html',
@@ -72,24 +74,87 @@ async function setupSocialBars() {
   });
 }
 
-function buildApplicationFormData(form) {
-  const fd = new FormData(form);
-  fd.set('_subject', 'New Motor City Creators Application');
-  fd.set('_template', 'table');
-  fd.set('_captcha', 'false');
-  fd.set('_next', `${window.location.origin}/contact.html?submitted=1`);
-  const applicantEmail = fd.get('email');
-  if (applicantEmail) fd.set('_replyto', applicantEmail);
-  return fd;
+function fieldValue(form, name) {
+  const el = form.querySelector(`[name="${name}"]`);
+  if (!el) return '';
+  return String(el.value || '').trim();
+}
+
+function buildApplicationSummary(form) {
+  const first = fieldValue(form, 'first_name');
+  const last = fieldValue(form, 'last_name');
+  const lines = [
+    'MOTOR CITY CREATORS — NEW APPLICATION',
+    '=====================================',
+    '',
+    `Name: ${first} ${last}`.trim(),
+    `Email: ${fieldValue(form, 'email') || '(not provided)'}`,
+    `Phone: ${fieldValue(form, 'phone') || '(not provided)'}`,
+    `Main Social: ${fieldValue(form, 'main_social') || '(not provided)'}`,
+    `Interested In: ${fieldValue(form, 'interest') || '(not provided)'}`,
+    '',
+    'What They Do:',
+    fieldValue(form, 'what_you_do') || '(not provided)',
+    '',
+    'Goals & Revenue Targets:',
+    fieldValue(form, 'goals') || '(not provided)',
+  ];
+  return lines.join('\n');
+}
+
+function ensureHiddenField(form, name, value) {
+  let el = form.querySelector(`[name="${name}"]`);
+  if (!el) {
+    el = document.createElement('input');
+    el.type = 'hidden';
+    el.name = name;
+    form.appendChild(el);
+  }
+  el.value = value;
+}
+
+function syncFormHiddenFields(form) {
+  const summary = buildApplicationSummary(form);
+  ensureHiddenField(form, 'message', summary);
+  ensureHiddenField(form, 'application_summary', summary);
+
+  const next = form.querySelector('[name="_next"]');
+  if (next) next.value = APPLICATION_RETURN_URL;
+
+  const subject = form.querySelector('[name="_subject"]');
+  if (subject) {
+    const name = `${fieldValue(form, 'first_name')} ${fieldValue(form, 'last_name')}`.trim();
+    subject.value = name ? `New MCC Application — ${name}` : 'New Motor City Creators Application';
+  }
+
+  const email = fieldValue(form, 'email');
+  if (!email) return;
+
+  ensureHiddenField(form, '_replyto', email);
+}
+
+function formDataToUrlEncoded(form) {
+  const params = new URLSearchParams();
+  new FormData(form).forEach((value, key) => {
+    if (typeof value === 'string') params.append(key, value);
+  });
+  return params.toString();
 }
 
 function formSubmitSucceeded(data) {
   return data && (data.success === true || data.success === 'true');
 }
 
-function submitApplicationNatively(form) {
-  form.action = `https://formsubmit.co/${APPLICATION_EMAIL}`;
-  form.method = 'POST';
+function showFormBanner(form, message, type = 'success') {
+  form.querySelector('.form-status-banner, .form-error-banner')?.remove();
+  const banner = document.createElement('p');
+  banner.className = type === 'error' ? 'form-error-banner' : 'form-status-banner';
+  banner.textContent = message;
+  form.insertBefore(banner, form.firstChild);
+}
+
+function deliverApplicationNatively(form) {
+  syncFormHiddenFields(form);
   form.removeEventListener('submit', handleApplicationSubmit);
   form.submit();
 }
@@ -100,52 +165,70 @@ async function handleApplicationSubmit(e) {
   const btn = form.querySelector('.form-submit');
   if (!btn || btn.disabled) return;
 
+  if (form.querySelector('[name="_honey"]')?.value) return;
+
+  syncFormHiddenFields(form);
+
   const originalText = btn.textContent;
   btn.disabled = true;
   btn.textContent = 'Sending...';
+  form.querySelector('.form-error-banner')?.remove();
 
   try {
-    const res = await fetch(`https://formsubmit.co/ajax/${APPLICATION_EMAIL}`, {
+    const res = await fetch(FORMSUBMIT_AJAX, {
       method: 'POST',
-      headers: { Accept: 'application/json' },
-      body: buildApplicationFormData(form),
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+      },
+      body: formDataToUrlEncoded(form),
     });
     const data = await res.json().catch(() => ({}));
 
     if (formSubmitSucceeded(data)) {
-      btn.textContent = "Application Sent — We'll Contact You Within 24 Hours";
-      btn.style.background = '#2a6e2a';
-      btn.style.color = '#fff';
-      form.reset();
-      setTimeout(() => {
-        btn.textContent = originalText;
-        btn.style.background = '';
-        btn.style.color = '';
-        btn.disabled = false;
-      }, 5000);
+      window.location.href = APPLICATION_RETURN_URL;
       return;
     }
 
     const message = (data.message || '').toLowerCase();
     if (message.includes('activation')) {
-      submitApplicationNatively(form);
+      showFormBanner(
+        form,
+        'Almost there — check wayne@motorcitycreators.com for a FormSubmit activation email and click the link once. Then submit again.',
+        'error'
+      );
+      btn.textContent = originalText;
+      btn.disabled = false;
       return;
     }
-
-    throw new Error(data.message || 'submit failed');
   } catch {
-    btn.textContent = 'Retrying delivery...';
-    setTimeout(() => submitApplicationNatively(form), 400);
+    /* fall through to native POST */
   }
+
+  btn.textContent = 'Delivering...';
+  deliverApplicationNatively(form);
 }
 
 function showSubmittedBanner() {
   if (!window.location.search.includes('submitted=1')) return;
+
+  const text =
+    'Application received — thank you! A real Motor City Creators team member will review it. Replies come from our team (not an auto-bot) and may take a little time — please check spam. Read below to learn more about us while you wait.';
+
+  const banner = document.createElement('p');
+  banner.className = 'form-status-banner application-thanks-banner';
+  banner.textContent = text;
+
+  const aboutHero = document.querySelector('.page-hero-inner');
+  if (aboutHero) {
+    aboutHero.insertBefore(banner, aboutHero.firstChild);
+    window.history.replaceState({}, '', window.location.pathname);
+    banner.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return;
+  }
+
   const form = document.querySelector('.application-form');
   if (!form) return;
-  const banner = document.createElement('p');
-  banner.className = 'form-status-banner';
-  banner.textContent = "Application received — we'll contact you within 24 hours.";
   form.insertBefore(banner, form.firstChild);
   window.history.replaceState({}, '', window.location.pathname);
 }

@@ -184,6 +184,12 @@ section{padding:90px clamp(20px,4vw,56px)}
 .form-submit{width:100%;padding:15px;background:var(--gold);color:var(--black);font-family:var(--sub);font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;border:none;cursor:pointer;margin-top:4px}
 .form-submit:hover{background:var(--gold-light)}
 .form-status-banner{background:rgba(46,204,113,.12);border:1px solid rgba(46,204,113,.35);color:var(--white);font-size:.82rem;padding:12px 14px;margin-bottom:18px;line-height:1.55;text-align:center}
+.form-error-banner{background:rgba(231,76,60,.12);border:1px solid rgba(231,76,60,.35);color:var(--white);font-size:.82rem;padding:12px 14px;margin-bottom:18px;line-height:1.55;text-align:center}
+.form-response-note{font-size:.78rem;color:var(--muted);line-height:1.65;margin-bottom:18px;padding:12px 14px;border:1px solid var(--border);background:rgba(201,162,39,.06)}
+.form-response-note strong{color:var(--white)}
+.application-thanks-banner{margin-bottom:18px;text-align:center}
+.page-hero-inner .application-thanks-banner{max-width:720px;margin-left:auto;margin-right:auto}
+.form-honey{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none}
 .contact-item{padding:16px 0;border-bottom:1px solid var(--border)}
 .contact-label{font-family:var(--sub);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:4px}
 .contact-val{font-size:.95rem;color:var(--white)}
