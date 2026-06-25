@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>How to Visit Motor City Creators — No SSL Errors</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --gold:#C9A227;--gold-light:#E2C04A;
+    --black:#070707;--card:#161616;--border:#2A2A2A;--muted:#999;--white:#FFF;--green:#2ECC71;--red:#E74C3C;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;background:#000;overflow:hidden;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif}
+
+  .frame{
+    position:relative;width:min(100vw,177.78vh);height:min(56.25vw,100vh);
+    aspect-ratio:16/9;background:var(--black);overflow:hidden;border:1px solid var(--border);
+  }
+
+  .scene{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .45s ease;padding:5%}
+  .scene.active{opacity:1}
+
+  .eyebrow{font-family:'Montserrat',sans-serif;font-size:clamp(.55rem,1.2vw,.75rem);font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5%}
+  h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,4.5vw,3.2rem);line-height:.95;color:var(--white);margin-bottom:2%}
+  h1 span{color:var(--gold-light)}
+  p{font-size:clamp(.72rem,1.5vw,1rem);color:var(--muted);line-height:1.6;max-width:90%}
+
+  .browser{
+    margin-top:3%;background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;flex:1;max-height:55%;display:flex;flex-direction:column;
+  }
+  .browser-bar{display:flex;align-items:center;gap:8px;padding:2% 2.5%;background:#111;border-bottom:1px solid var(--border)}
+  .dot{width:10px;height:10px;border-radius:50%;background:#333}
+  .dot.r{background:#E74C3C}.dot.y{background:#F1C40F}.dot.g{background:#2ECC71}
+  .url-bar{flex:1;background:var(--black);border:1px solid var(--border);padding:2% 3%;font-family:monospace;font-size:clamp(.65rem,1.3vw,.9rem);color:var(--green);display:flex;align-items:center;min-height:36px}
+  .url-bar.bad{color:var(--red);text-decoration:line-through;opacity:.7}
+  .url-bar.good{color:var(--green)}
+  .browser-body{flex:1;display:flex;align-items:center;justify-content:center;padding:4%;background:radial-gradient(ellipse at 50% 30%,rgba(201,162,39,.12),transparent 60%)}
+  .browser-body img{max-width:55%;max-height:80%;filter:drop-shadow(0 12px 40px rgba(201,162,39,.3))}
+
+  .warn-box{margin-top:2.5%;padding:2.5% 3%;border:1px solid rgba(231,76,60,.45);background:rgba(231,76,60,.1);border-radius:6px;font-size:clamp(.68rem,1.35vw,.92rem);color:var(--white);line-height:1.55}
+  .warn-box strong{color:var(--gold-light)}
+  .tip-box{margin-top:2.5%;padding:2.5% 3%;border:1px solid rgba(46,204,113,.35);background:rgba(46,204,113,.08);border-radius:6px;font-size:clamp(.68rem,1.35vw,.92rem);color:var(--white);line-height:1.55}
+
+  .steps{margin-top:2%;display:flex;gap:2%;flex-wrap:wrap}
+  .step{flex:1;min-width:28%;background:var(--card);border:1px solid var(--border);padding:2.5%;text-align:center}
+  .step-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.4rem,3vw,2rem);color:var(--gold);line-height:1}
+  .step-txt{font-size:clamp(.6rem,1.1vw,.78rem);color:var(--muted);margin-top:6px;line-height:1.45}
+
+  .progress{position:absolute;bottom:0;left:0;height:3px;background:var(--gold);width:0;z-index:5}
+</style>
+</head>
+<body>
+  <div class="frame" id="demo">
+    <div class="progress" id="progress"></div>
+
+    <div class="scene active" data-scene="intro">
+      <div class="eyebrow">Motor City Creators</div>
+      <h1>HOW TO VISIT<br/><span>OUR WEBSITE</span></h1>
+      <p>Use the correct address so you never see “Your connection is not private.”</p>
+      <div class="steps" style="margin-top:4%">
+        <div class="step"><div class="step-num">1</div><div class="step-txt">Open Chrome or Safari</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-txt">Type the URL below — no www</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-txt">Tap Apply Free on Contact</div></div>
+      </div>
+    </div>
+
+    <div class="scene" data-scene="wrong">
+      <div class="eyebrow">Avoid this</div>
+      <h1>DON'T USE <span>WWW</span></h1>
+      <p><strong style="color:var(--white)">www.motorcitycreators.com</strong> can show a security warning (ERR_CERT_COMMON_NAME_INVALID).</p>
+      <div class="browser">
+        <div class="browser-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><div class="url-bar bad">https://www.motorcitycreators.com</div></div>
+        <div class="browser-body" style="flex-direction:column;gap:12px">
+          <div style="font-size:clamp(2rem,5vw,3.5rem)">🔒</div>
+          <div style="font-family:'Montserrat',sans-serif;font-size:clamp(.65rem,1.3vw,.85rem);font-weight:700;color:var(--red);letter-spacing:.08em;text-transform:uppercase">Your connection is not private</div>
+        </div>
+      </div>
+      <div class="warn-box"><strong>Fix:</strong> Remove the <strong>www.</strong> and use <strong>motorcitycreators.com</strong> instead.</div>
+    </div>
+
+    <div class="scene" data-scene="right">
+      <div class="eyebrow">Correct URL</div>
+      <h1>USE THIS <span>LINK</span></h1>
+      <p>Bookmark this — it loads with a secure lock icon every time.</p>
+      <div class="browser">
+        <div class="browser-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><div class="url-bar good">https://motorcitycreators.com</div></div>
+        <div class="browser-body"><img src="assets/logo-brand.png" alt="Motor City Creators homepage"/></div>
+      </div>
+      <div class="tip-box">✓ Secure · Apply Free on Contact · Works on phone &amp; desktop</div>
+    </div>
+
+    <div class="scene" data-scene="apply">
+      <div class="eyebrow">Next step</div>
+      <h1>TAP <span>APPLY FREE</span></h1>
+      <p>Go to <strong style="color:var(--gold)">motorcitycreators.com/contact</strong> — fill out your @ and what you do. A real team member follows up by email.</p>
+      <div class="steps" style="margin-top:3%">
+        <div class="step"><div class="step-num">@</div><div class="step-txt">Main social handle</div></div>
+        <div class="step"><div class="step-num">✎</div><div class="step-txt">What you create</div></div>
+        <div class="step"><div class="step-num">✓</div><div class="step-txt">Send application</div></div>
+      </div>
+      <div class="tip-box" style="margin-top:3%">motorcitycreators.com/contact</div>
+    </div>
+
+    <div class="scene" data-scene="outro">
+      <div class="eyebrow">Motor City Creators</div>
+      <h1>DETROIT <span>TO THE WORLD</span></h1>
+      <p>Digital marketing · Management · Coaching · Photography</p>
+      <div class="tip-box" style="margin-top:4%;font-size:clamp(.8rem,1.6vw,1.05rem)">
+        <strong style="color:var(--gold-light)">motorcitycreators.com</strong><br/>Save this link. Share it. Apply free today.
+      </div>
+    </div>
+  </div>
+
+<script>
+(function () {
+  const LOOP_MS = 28000;
+  const scenes = ['intro', 'wrong', 'right', 'apply', 'outro'];
+  const sceneEls = Object.fromEntries(scenes.map((s) => [s, document.querySelector(`[data-scene="${s}"]`)]));
+  const progress = document.getElementById('progress');
+  const timings = [
+    { scene: 'intro', ms: 4500 },
+    { scene: 'wrong', ms: 6500 },
+    { scene: 'right', ms: 6500 },
+    { scene: 'apply', ms: 6500 },
+    { scene: 'outro', ms: 4000 },
+  ];
+
+  function setScene(name) {
+    scenes.forEach((s) => sceneEls[s].classList.toggle('active', s === name));
+  }
+
+  async function runLoop() {
+    const start = performance.now();
+    const tick = () => {
+      const elapsed = performance.now() - start;
+      progress.style.width = `${Math.min(100, (elapsed / LOOP_MS) * 100)}%`;
+      if (elapsed < LOOP_MS) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+
+    for (const step of timings) {
+      setScene(step.scene);
+      await new Promise((r) => setTimeout(r, step.ms));
+    }
+    progress.style.width = '0';
+    runLoop();
+  }
+
+  runLoop();
+})();
+</script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 const APPLICATION_EMAIL = 'wayne@motorcitycreators.com';
-const APPLICATION_RETURN_URL = 'https://www.motorcitycreators.com/about.html?submitted=1';
+const APPLICATION_RETURN_URL = 'https://motorcitycreators.com/about.html?submitted=1';
 const WEB3FORMS_ACCESS_KEY = '8a96ee80-5612-42c5-bb18-7d74c861fe47';
 
 const SOCIAL_TEMPLATE_PATHS = [
